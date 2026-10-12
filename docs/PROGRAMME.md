@@ -19,7 +19,7 @@ The owner's first-impression fixes, in this order:
 | [UX-005](https://github.com/techrote/RetroBar-Extreme/issues/7) | Font settings over any theme (family, size, weight, italic) · ✅ *merged ([PR #8](https://github.com/techrote/RetroBar-Extreme/pull/8)), owner-tested* | Owner pulled forward: native-size text needs a font chosen for that size |
 | [UX-006](https://github.com/techrote/RetroBar-Extreme/issues/9) | Native sizing: draw at real size, no stretching (style engine S2) · ✅ *merged ([PR #10](https://github.com/techrote/RetroBar-Extreme/pull/10)), owner-tested* | Owner decision: native sizing is the default and target |
 | [UX-007](https://github.com/techrote/RetroBar-Extreme/issues/11) | Text fixes: menus, symbol fonts, row height + manual adjust · ✅ *merged ([PR #12](https://github.com/techrote/RetroBar-Extreme/pull/12)), owner-tested* | Found while testing UX-006 |
-| [UX-008](https://github.com/techrote/RetroBar-Extreme/issues/13) | Line spacing control (multi-line clock overflow with large-gap fonts) · *[PR #14](https://github.com/techrote/RetroBar-Extreme/pull/14), awaiting owner test* | Found in daily use |
+| [UX-008](https://github.com/techrote/RetroBar-Extreme/issues/13) | Line spacing, Clock lines, steady clock width (clock overflow + walking divider) · *[PR #14](https://github.com/techrote/RetroBar-Extreme/pull/14), awaiting owner test* | Found in daily use |
 | [UX-003](https://github.com/techrote/RetroBar-Extreme/issues/4) | Style layer: custom colours and gradients over any theme | Fonts now handled by UX-005 |
 | [UX-004](https://github.com/techrote/RetroBar-Extreme/issues/5) | Style editor in RetroBar's Properties window | Needs the UX-003 layer to edit |
 
