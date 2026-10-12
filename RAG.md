@@ -14,7 +14,7 @@ Replace StartAllBack on the owner's machines with a suite we control, then go be
 ## What the owner wants
 
 - **Taskbar (from their StartAllBack setup):** slim, consistent and informative. Small icons, labelled window buttons showing titles, never-combined, pinned shortcuts, compact tray, clock.
-- **Daily setup (12 Oct):** 100% taskbar scale, larger font sizes via the Style tab. *Theme default* (hinted MS Sans Serif) looks right at all sizes and weights; unhinted fonts such as Orbitron only look crisp at some sizes, which is a property of the font.
+- **Daily setup (12 Oct):** 100% taskbar scale; *Orbitron Hinted* 17px weight 600; *Row height adjust* −4 (no padding wanted under the lower row). *Theme default* (hinted MS Sans Serif) looks right at all sizes and weights; unhinted fonts such as Orbitron only look crisp at some sizes, which is a property of the font.
 - **Already liked in stock RetroBar:** middle-click on task buttons, Win+number shortcuts.
 - **Look:** industrial, down-to-earth, non-neon "ratrod" cyberpunk. Function over form, but it should look tough rather than glossy. Pixel-style "system" fonts are welcome; blurry smoothing is not.
 
