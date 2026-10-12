@@ -22,6 +22,7 @@ Replace StartAllBack on the owner's machines with a suite we control, then go be
 - **D-001 — Taskbar by replacement, not Explorer hooks.** Windows 24H2+ removed the old taskbar code from Explorer. StartAllBack and ExplorerPatcher ship their own reimplementations injected into Explorer, which breaks on updates and trips antivirus. We use a separate replacement taskbar (RetroBar) instead: it survives updates and quitting it restores Windows' own taskbar. *(12 Oct 2026)*
 - **D-002 — Modular forks, one umbrella.** Each module is a fork of an existing open-source project; this repo holds plan, checklist and issues. Forks keep upstream mergeability. *(12 Oct 2026)*
 - **D-003 — Personal use.** No signing, packaging or distribution work. Licences only matter if something is redistributed; keep each fork under its upstream licence. *(12 Oct 2026)*
+- **D-005 — Native sizing over stretching.** At any taskbar scale, draw everything at its real size (theme sizes rescaled with whole-pixel rounding, real text sizes, borders kept 1px) rather than drawing at 100% and stretching. Stretch remains a fallback mode. See [docs/STYLE-ENGINE.md](docs/STYLE-ENGINE.md). *(12 Oct 2026)*
 - **D-004 — No reverse engineering of commercial products** (StartAllBack, WindowBlinds). Use open-source references and Microsoft documentation. *(12 Oct 2026)*
 
 ## RetroBar-Extreme facts

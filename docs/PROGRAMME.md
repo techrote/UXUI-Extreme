@@ -16,11 +16,12 @@ The owner's first-impression fixes, in this order:
 |---|---|---|
 | [UX-001](https://github.com/techrote/RetroBar-Extreme/issues/2) | Tray icons stuck inverted · ✅ *merged ([PR #1](https://github.com/techrote/RetroBar-Extreme/pull/1)), owner-tested; inversion defaults deferred to UX-003* | Small, clear bug; proves the build → test → merge loop end to end |
 | [UX-002](https://github.com/techrote/RetroBar-Extreme/issues/3) | Crisp pixel-style text at non-integer scaling · *opt-in mode merged ([PR #6](https://github.com/techrote/RetroBar-Extreme/pull/6)); default decided after fonts* | Perceptual; needs side-by-side prototypes the owner compares |
-| [UX-005](https://github.com/techrote/RetroBar-Extreme/issues/7) | Font settings over any theme (family, size, weight, italic) · *[PR #8](https://github.com/techrote/RetroBar-Extreme/pull/8), awaiting owner test* | Owner pulled forward: native-size text needs a font chosen for that size |
+| [UX-005](https://github.com/techrote/RetroBar-Extreme/issues/7) | Font settings over any theme (family, size, weight, italic) · ✅ *merged ([PR #8](https://github.com/techrote/RetroBar-Extreme/pull/8)), owner-tested* | Owner pulled forward: native-size text needs a font chosen for that size |
+| [UX-006](https://github.com/techrote/RetroBar-Extreme/issues/9) | Native sizing: draw at real size, no stretching (style engine S2) · *[PR #10](https://github.com/techrote/RetroBar-Extreme/pull/10), awaiting owner test* | Owner decision: native sizing is the default and target |
 | [UX-003](https://github.com/techrote/RetroBar-Extreme/issues/4) | Style layer: custom colours and gradients over any theme | Fonts now handled by UX-005 |
 | [UX-004](https://github.com/techrote/RetroBar-Extreme/issues/5) | Style editor in RetroBar's Properties window | Needs the UX-003 layer to edit |
 
-> **Style engine design pass:** [STYLE-ENGINE.md](STYLE-ENGINE.md) proposes one engine for sizes, fonts, icons and colours, and reorders the rest of Phase 1 into slices S1–S7. *Awaiting owner decisions.*
+> **Style engine design pass:** [STYLE-ENGINE.md](STYLE-ENGINE.md) proposes one engine for sizes, fonts, icons and colours, and reorders the rest of Phase 1 into slices S1–S7. *Decision A (native sizing) taken; B and order open.*
 
 ## Phase 2 — Taskbar parity with the owner's StartAllBack setup
 

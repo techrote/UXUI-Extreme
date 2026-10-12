@@ -1,6 +1,6 @@
 # Style engine — design pass
 
-*12 Oct 2026 · status: **proposal, awaiting owner decisions** (marked ❓ below)*
+*12 Oct 2026 · status: **accepted in part**: Decision A decided (native sizing); B and slice order still open (❓)*
 
 One part of RetroBar-Extreme that owns **how the taskbar looks**: sizes, text, fonts, icons and colours. All of it is driven by one saved *style* the owner can edit, and it works on top of any built-in theme.
 
@@ -31,7 +31,7 @@ Instead of drawing at 100% and stretching, make every part the **right size at 1
 
 This is how classic Windows itself handled bigger text: it changed sizes, it didn't zoom.
 
-### ❓ Decision A — scaling model
+### ✅ Decision A — scaling model: **A1 native sizing is the default and target** *(owner, 12 Oct)*. Stretch stays as a selectable fallback; fancier stretch/scaling methods may be revisited much later.
 
 | Option | What it means | Pros | Cons |
 |---|---|---|---|
@@ -39,7 +39,7 @@ This is how classic Windows itself handled bigger text: it changed sizes, it did
 | A2. Stretch + fix-ups *(current)* | Keep the stretch; counter-scale text (done), later icons | Already partly built; every theme works unchanged | Bevels and lines still blur at in-between scales; every new element needs its own fix-up |
 | A3. Both, switchable | A1 as the new mode, A2 kept as "classic stretch" | Safe fallback per theme | Two code paths to keep working |
 
-Recommendation: **A3 in practice**. Build A1 as a new mode, keep the current stretch as the fallback and compare them side by side at 145%. The UX-002 counter-scale code would become unnecessary in A1 mode.
+Implemented as UX-006 ([#9](https://github.com/techrote/RetroBar-Extreme/issues/9), [PR #10](https://github.com/techrote/RetroBar-Extreme/pull/10)): theme XAML is rescaled with whole-pixel rounding as it loads; borders and strokes are not scaled. The UX-002 counter-scale only runs in stretch mode.
 
 ## Fonts: a font pipeline
 
@@ -51,7 +51,7 @@ Crisp pixel text needs a font that is (1) a real static weight, (2) hinted, (3) 
    - auto-hint with *ttfautohint* (the same tool Google Fonts uses);
    - rename so it can't clash with the original.
    
-   ✅ Probe done: **Orbitron Hinted** pack (owner to compare against plain Orbitron).
+   ✅ Probe done: **Orbitron Hinted** (ttfautohint) — owner: similar issues overall, nicer at their chosen size. Hinting helps but doesn't replace picking good sizes.
 3. **A small curated set** of openly licensed pixel-style fonts designed for larger sizes, for the true Win9x look at 145%+. Licences checked per font before bundling.
 4. **Size readout** keeps showing the real on-screen px (done in UX-005).
 
@@ -81,8 +81,8 @@ A **style** = base theme + overrides (geometry, font, colours, icon size). It is
 
 | # | Slice | Depends on | Notes |
 |---|---|---|---|
-| S1 | Font settings + row growth (**PR #8, UX-005**) | — | Merge after owner test; first piece of the engine |
-| S2 | **Native sizing prototype** (Decision A) | S1 | Side-by-side with stretch at 145% on 2–3 themes |
+| S1 | Font settings + row growth (**PR #8, UX-005**) | — | ✅ Merged, owner-tested |
+| S2 | **Native sizing** (Decision A) — UX-006 | S1 | [PR #10](https://github.com/techrote/RetroBar-Extreme/pull/10) awaiting owner test at 145% |
 | S3 | Real-size icons | S2 | 16/20/24/32 picked from scale |
 | S4 | Private fonts folder + first prepared/curated fonts | S1 | Pairs with Decision B |
 | S5 | Theme-key map + colour layer (UX-003) | S2 | Map first, then brushes |
@@ -91,7 +91,7 @@ A **style** = base theme + overrides (geometry, font, colours, icon size). It is
 
 ## Owner decisions needed
 
-- ❓ **A — scaling model:** go with A3 (native sizing as a new mode, stretch kept as fallback)?
+- ✅ **A — scaling model:** native sizing is default and target (owner, 12 Oct).
 - ❓ **B — font preparation:** B1 now (agent-made packs), maybe B2 later?
 - ❓ **Order:** S2 (native sizing) next, or S4 (fonts folder) first?
 - Feedback wanted: plain **Orbitron** vs **Orbitron Hinted** at a few sizes.
