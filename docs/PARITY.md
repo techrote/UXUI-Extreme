@@ -13,7 +13,7 @@ Status key: ✅ have it · 🟡 partly · ❌ missing · ❓ unchecked. "Stock" 
 | ★ Slim bar / small icons / adjustable size | 🟡 overall scale only (`TaskbarScale`) | Separate icon size, margins, button width |
 | ★ Crisp text when scaled | ❌ jagged at non-integer scales (owner-tested) | [UX-002](https://github.com/techrote/RetroBar-Extreme/issues/3) |
 | ★ Custom colours, gradients, fonts | 🟡 hand-written theme XAML only | [UX-003](https://github.com/techrote/RetroBar-Extreme/issues/4) |
-| ★ Tray icon colour inversion settings work | ❌ stuck inverted (owner-tested) | [UX-001](https://github.com/techrote/RetroBar-Extreme/issues/2) |
+| ★ Tray icon colour inversion settings work | 🟡 works once icons are ticked by hand; defaults don't match 26H2 (owner-tested) | UX-001 ✅; defaults in [UX-003](https://github.com/techrote/RetroBar-Extreme/issues/4) |
 | Middle-click, Win+number hotkeys | ✅ (owner-liked) | — |
 | Move to top/left/right edge | ✅ `Edge` | — |
 | Multi-row / width | ✅ `RowCount`, `TaskbarWidth` | — |
