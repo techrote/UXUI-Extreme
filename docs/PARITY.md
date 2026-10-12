@@ -11,9 +11,9 @@ Status key: ✅ have it · 🟡 partly · ❌ missing · ❓ unchecked. "Stock" 
 | ★ Labels with window titles | ✅ | — |
 | ★ Never combine (one button per window) | ✅ RetroBar doesn't group | Optional grouping later, if wanted |
 | ★ Slim bar / small icons / adjustable size | 🟡 overall scale only (`TaskbarScale`) | Separate icon size, margins, button width |
-| ★ Crisp text when scaled | ❌ jagged at non-integer scales (owner-tested) | UX-002 |
-| ★ Custom colours, gradients, fonts | 🟡 hand-written theme XAML only | UX-003 |
-| ★ Tray icon colour inversion settings work | ❌ stuck inverted (owner-tested) | UX-001 |
+| ★ Crisp text when scaled | ❌ jagged at non-integer scales (owner-tested) | [UX-002](https://github.com/techrote/RetroBar-Extreme/issues/3) |
+| ★ Custom colours, gradients, fonts | 🟡 hand-written theme XAML only | [UX-003](https://github.com/techrote/RetroBar-Extreme/issues/4) |
+| ★ Tray icon colour inversion settings work | ❌ stuck inverted (owner-tested) | [UX-001](https://github.com/techrote/RetroBar-Extreme/issues/2) |
 | Middle-click, Win+number hotkeys | ✅ (owner-liked) | — |
 | Move to top/left/right edge | ✅ `Edge` | — |
 | Multi-row / width | ✅ `RowCount`, `TaskbarWidth` | — |
@@ -27,7 +27,8 @@ Status key: ✅ have it · 🟡 partly · ❌ missing · ❓ unchecked. "Stock" 
 | Multi-monitor taskbars | ✅ `ShowMultiMon`, `MultiMonMode` | — |
 | Badges (unread counts) | ✅ `ShowTaskBadges` | — |
 | Clock with seconds / custom format | ✅ | — |
-| Volume on mouse wheel, mic mute on middle-click | ❌ | Phase 2 |
+| Volume on mouse wheel over tray icon | ✅ | — |
+| Mic mute on middle-click | ❌ | Phase 2 |
 | Network/battery/volume flyouts | ❓ opens Windows' own | Check in Phase 2 |
 
 ## Start menu (Open-Shell-Menu-Extreme)

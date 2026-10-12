@@ -1,6 +1,6 @@
 # Programme
 
-Order of work. Issues carry the detail; this page is the map.
+Order of work across all modules. Detailed instructions and progress live in each module's issues (linked); this page is the map.
 
 ## Phase 0 — Workshop *(in progress)*
 
@@ -14,10 +14,10 @@ The owner's first-impression fixes, in this order:
 
 | ID | What | Why this order |
 |---|---|---|
-| [UX-001](https://github.com/techrote/UXUI-Extreme/issues/1) | Tray icons stuck inverted | Small, clear bug; proves the build → test → merge loop end to end |
-| [UX-002](https://github.com/techrote/UXUI-Extreme/issues/2) | Crisp pixel-style text at non-integer scaling | Perceptual; needs side-by-side prototypes the owner compares |
-| [UX-003](https://github.com/techrote/UXUI-Extreme/issues/3) | Style layer: custom colours, gradients and fonts over any theme | Builds on what UX-002 decides about fonts |
-| [UX-004](https://github.com/techrote/UXUI-Extreme/issues/4) | Style editor in RetroBar's Properties window | Needs the UX-003 layer to edit |
+| [UX-001](https://github.com/techrote/RetroBar-Extreme/issues/2) | Tray icons stuck inverted · *fix in [PR #1](https://github.com/techrote/RetroBar-Extreme/pull/1), awaiting owner test* | Small, clear bug; proves the build → test → merge loop end to end |
+| [UX-002](https://github.com/techrote/RetroBar-Extreme/issues/3) | Crisp pixel-style text at non-integer scaling | Perceptual; needs side-by-side prototypes the owner compares |
+| [UX-003](https://github.com/techrote/RetroBar-Extreme/issues/4) | Style layer: custom colours, gradients and fonts over any theme | Builds on what UX-002 decides about fonts |
+| [UX-004](https://github.com/techrote/RetroBar-Extreme/issues/5) | Style editor in RetroBar's Properties window | Needs the UX-003 layer to edit |
 
 ## Phase 2 — Taskbar parity with the owner's StartAllBack setup
 
