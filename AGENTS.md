@@ -18,6 +18,9 @@ The owner directs, judges and tests; they do not write or debug code. Therefore:
 - Never hand them a raw stack trace or build log as their task. Translate failures into what went wrong and what happens next.
 - A human test request must be one short card: what to download (exact link), what to try, what "good" looks like, what to reply.
 - Windows-first. Builds the owner runs must be portable zips from CI, never "build it yourself".
+- Give direct links (artifact downloads, pages, settings) instead of click-path directions wherever a link exists. Post the build link on the issue as soon as CI finishes.
+- If the owner must run commands: one copy-paste code block with everything bundled, and every prerequisite, warning and caveat written **before** the block. They paste and press Enter before reading what follows.
+- Minimise human steps. If an agent can do it, the agent does it.
 
 ## Work rules
 
