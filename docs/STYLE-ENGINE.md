@@ -82,8 +82,8 @@ A **style** = base theme + overrides (geometry, font, colours, icon size). It is
 | # | Slice | Depends on | Notes |
 |---|---|---|---|
 | S1 | Font settings + row growth (**PR #8, UX-005**) | — | ✅ Merged, owner-tested |
-| S2 | **Native sizing** (Decision A) — UX-006 | S1 | [PR #10](https://github.com/techrote/RetroBar-Extreme/pull/10) awaiting owner test at 145% |
-| S3 | Real-size icons | S2 | 16/20/24/32 picked from scale |
+| S2 | **Native sizing** (Decision A) — UX-006 | S1 | ✅ Merged, owner-tested. Owner will mostly run at **100% scale with larger fonts** |
+| S3 | Real-size icons | S2 | Owner: icons already look fine after S2; low priority |
 | S4 | Private fonts folder + first prepared/curated fonts | S1 | Pairs with Decision B |
 | S5 | Theme-key map + colour layer (UX-003) | S2 | Map first, then brushes |
 | S6 | Style files + editor (UX-004) | S5 | Turns settings into saved, switchable styles |
