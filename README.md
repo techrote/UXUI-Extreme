@@ -18,6 +18,7 @@ Each piece is a fork of an existing open-source project, kept as close to its up
 
 - **What we're doing and in what order:** [docs/PROGRAMME.md](docs/PROGRAMME.md)
 - **StartAllBack feature checklist:** [docs/PARITY.md](docs/PARITY.md)
+- **How the taskbar's look is controlled (design):** [docs/STYLE-ENGINE.md](docs/STYLE-ENGINE.md)
 - **Work items:** detailed issues live in each module repo ([RetroBar-Extreme](https://github.com/techrote/RetroBar-Extreme/issues), [Open-Shell-Menu-Extreme](https://github.com/techrote/Open-Shell-Menu-Extreme/issues)). This repo keeps the overview; its own issues are only for work spanning several modules.
 - **Rules for agents:** [AGENTS.md](AGENTS.md), then [RAG.md](RAG.md)
 
