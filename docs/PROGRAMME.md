@@ -14,9 +14,10 @@ The owner's first-impression fixes, in this order:
 
 | ID | What | Why this order |
 |---|---|---|
-| UX-001 | Tray icons stuck inverted | Small, clear bug; proves the build → test → merge loop end to end |
-| UX-002 | Crisp pixel-style text at non-integer scaling | Perceptual; needs side-by-side prototypes the owner compares |
-| UX-003 | Custom colours, gradients and fonts on top of any theme | Biggest; builds on what UX-002 learns about text |
+| [UX-001](https://github.com/techrote/UXUI-Extreme/issues/1) | Tray icons stuck inverted | Small, clear bug; proves the build → test → merge loop end to end |
+| [UX-002](https://github.com/techrote/UXUI-Extreme/issues/2) | Crisp pixel-style text at non-integer scaling | Perceptual; needs side-by-side prototypes the owner compares |
+| [UX-003](https://github.com/techrote/UXUI-Extreme/issues/3) | Style layer: custom colours, gradients and fonts over any theme | Builds on what UX-002 decides about fonts |
+| [UX-004](https://github.com/techrote/UXUI-Extreme/issues/4) | Style editor in RetroBar's Properties window | Needs the UX-003 layer to edit |
 
 ## Phase 2 — Taskbar parity with the owner's StartAllBack setup
 
