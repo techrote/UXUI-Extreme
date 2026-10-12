@@ -11,8 +11,9 @@ Status key: ✅ have it · 🟡 partly · ❌ missing · ❓ unchecked. "Stock" 
 | ★ Labels with window titles | ✅ | — |
 | ★ Never combine (one button per window) | ✅ RetroBar doesn't group | Optional grouping later, if wanted |
 | ★ Slim bar / small icons / adjustable size | 🟡 overall scale only (`TaskbarScale`) | Separate icon size, margins, button width |
-| ★ Crisp text when scaled | ❌ jagged at non-integer scales (owner-tested) | [UX-002](https://github.com/techrote/RetroBar-Extreme/issues/3) |
-| ★ Custom colours, gradients, fonts | 🟡 hand-written theme XAML only | [UX-003](https://github.com/techrote/RetroBar-Extreme/issues/4) |
+| ★ Crisp text when scaled | 🟡 opt-in native-size mode (owner: better; font choice next) | [UX-002](https://github.com/techrote/RetroBar-Extreme/issues/3) |
+| ★ Custom fonts (family, size, weight) | ❌ theme XAML only | [UX-005](https://github.com/techrote/RetroBar-Extreme/issues/7) |
+| ★ Custom colours, gradients | 🟡 hand-written theme XAML only | [UX-003](https://github.com/techrote/RetroBar-Extreme/issues/4) |
 | ★ Tray icon colour inversion settings work | 🟡 works once icons are ticked by hand; defaults don't match 26H2 (owner-tested) | UX-001 ✅; defaults in [UX-003](https://github.com/techrote/RetroBar-Extreme/issues/4) |
 | Middle-click, Win+number hotkeys | ✅ (owner-liked) | — |
 | Move to top/left/right edge | ✅ `Edge` | — |
