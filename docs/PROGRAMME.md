@@ -15,7 +15,7 @@ The owner's first-impression fixes, in this order:
 | ID | What | Why this order |
 |---|---|---|
 | [UX-001](https://github.com/techrote/RetroBar-Extreme/issues/2) | Tray icons stuck inverted · ✅ *merged ([PR #1](https://github.com/techrote/RetroBar-Extreme/pull/1)), owner-tested; inversion defaults deferred to UX-003* | Small, clear bug; proves the build → test → merge loop end to end |
-| [UX-002](https://github.com/techrote/RetroBar-Extreme/issues/3) | Crisp pixel-style text at non-integer scaling | Perceptual; needs side-by-side prototypes the owner compares |
+| [UX-002](https://github.com/techrote/RetroBar-Extreme/issues/3) | Crisp pixel-style text at non-integer scaling · *prototype in [PR #6](https://github.com/techrote/RetroBar-Extreme/pull/6), awaiting owner comparison* | Perceptual; needs side-by-side prototypes the owner compares |
 | [UX-003](https://github.com/techrote/RetroBar-Extreme/issues/4) | Style layer: custom colours, gradients and fonts over any theme | Builds on what UX-002 decides about fonts |
 | [UX-004](https://github.com/techrote/RetroBar-Extreme/issues/5) | Style editor in RetroBar's Properties window | Needs the UX-003 layer to edit |
 
