@@ -24,6 +24,9 @@ The owner's first-impression fixes, in this order:
 | [UX-008](https://github.com/techrote/RetroBar-Extreme/issues/13) | Line spacing, clock lines/fit/position, steady clock width (clock overflow + walking divider) · ✅ *merged ([PR #14](https://github.com/techrote/RetroBar-Extreme/pull/14)), owner-tested* | Found in daily use |
 | [UX-003](https://github.com/techrote/RetroBar-Extreme/issues/4) | Style layer: custom colours and gradients over any theme · ✅ *merged ([PR #15](https://github.com/techrote/RetroBar-Extreme/pull/15)), owner-tested; map in [STYLE-MAP.md](STYLE-MAP.md)* | Fonts now handled by UX-005 |
 | [UX-004](https://github.com/techrote/RetroBar-Extreme/issues/5) | Style editor in RetroBar's Properties window (Colours tab) · *in PR ([PR #16](https://github.com/techrote/RetroBar-Extreme/pull/16)), agent-tested; awaiting owner test* | Needs the UX-003 layer to edit |
+| [UX-009](https://github.com/techrote/RetroBar-Extreme/issues/17) | Colourways: copy/paste on colours, 12-slot floating palette, generated button/tray schemes, presets | Owner request after UX-004; makes whole colour sets quick |
+| [UX-010](https://github.com/techrote/RetroBar-Extreme/issues/18) | Start button colourways: colours from the Start button graphic, and recolouring it to match | Builds on the UX-009 palette and scheme generator |
+| [UX-011](https://github.com/techrote/RetroBar-Extreme/issues/19) | *Stretch:* textures coloured from a LUT (brushed metal, carbon, scanlines…) | Needs UX-009 palettes; Phase 4 skin-pack groundwork |
 
 > **Style engine design pass:** [STYLE-ENGINE.md](STYLE-ENGINE.md) proposes one engine for sizes, fonts, icons and colours, and reorders the rest of Phase 1 into slices S1–S7. *Decision A (native sizing) taken; B and order open.*
 
