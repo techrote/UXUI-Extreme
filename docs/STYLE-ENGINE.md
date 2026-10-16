@@ -86,7 +86,7 @@ A **style** = base theme + overrides (geometry, font, colours, icon size). It is
 | S3 | Real-size icons | S2 | Owner: icons already look fine after S2; low priority |
 | S4 | Private fonts folder + first prepared/curated fonts | S1 | Pairs with Decision B |
 | S5 | Theme-key map + colour layer (UX-003) | S2 | ✅ Merged (PR #15), owner-tested. Map: [STYLE-MAP.md](STYLE-MAP.md) |
-| S6 | Style files + editor (UX-004) | S5 | In PR #16 (Colours tab, named styles in `Styles`), awaiting owner test. Fonts stay as settings for now |
+| S6 | Style files + editor (UX-004) | S5 | ✅ Merged (PR #16), owner-tested: Colours tab, named styles in `Styles\`. Fonts stay as settings for now |
 | S7 | Brightness-based tray inversion and contrast warnings | S5 | Closes UX-001's leftovers |
 
 ## Owner decisions needed
