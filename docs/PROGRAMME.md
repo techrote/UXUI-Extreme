@@ -10,7 +10,7 @@ Order of work across all modules. Detailed instructions and progress live in eac
 
 ## Phase 1 — Make RetroBar feel right *(current)*
 
-First tagged build: [v1.23.31-extreme-alpha.1](https://github.com/techrote/RetroBar-Extreme/releases/tag/v1.23.31-extreme-alpha.1) (UX-001, 002, 005–008).
+Releases: [v1.23.31-extreme-alpha.1](https://github.com/techrote/RetroBar-Extreme/releases/tag/v1.23.31-extreme-alpha.1) (UX-001, 002, 005–008) · [v1.23.32-extreme-alpha.2](https://github.com/techrote/RetroBar-Extreme/releases/tag/v1.23.32-extreme-alpha.2) (+ UX-003 style layer).
 
 The owner's first-impression fixes, in this order:
 
@@ -22,7 +22,7 @@ The owner's first-impression fixes, in this order:
 | [UX-006](https://github.com/techrote/RetroBar-Extreme/issues/9) | Native sizing: draw at real size, no stretching (style engine S2) · ✅ *merged ([PR #10](https://github.com/techrote/RetroBar-Extreme/pull/10)), owner-tested* | Owner decision: native sizing is the default and target |
 | [UX-007](https://github.com/techrote/RetroBar-Extreme/issues/11) | Text fixes: menus, symbol fonts, row height + manual adjust · ✅ *merged ([PR #12](https://github.com/techrote/RetroBar-Extreme/pull/12)), owner-tested* | Found while testing UX-006 |
 | [UX-008](https://github.com/techrote/RetroBar-Extreme/issues/13) | Line spacing, clock lines/fit/position, steady clock width (clock overflow + walking divider) · ✅ *merged ([PR #14](https://github.com/techrote/RetroBar-Extreme/pull/14)), owner-tested* | Found in daily use |
-| [UX-003](https://github.com/techrote/RetroBar-Extreme/issues/4) | Style layer: custom colours and gradients over any theme · *in PR ([PR #15](https://github.com/techrote/RetroBar-Extreme/pull/15)), awaiting owner test; map in [STYLE-MAP.md](STYLE-MAP.md)* | Fonts now handled by UX-005 |
+| [UX-003](https://github.com/techrote/RetroBar-Extreme/issues/4) | Style layer: custom colours and gradients over any theme · ✅ *merged ([PR #15](https://github.com/techrote/RetroBar-Extreme/pull/15)), owner-tested; map in [STYLE-MAP.md](STYLE-MAP.md)* | Fonts now handled by UX-005 |
 | [UX-004](https://github.com/techrote/RetroBar-Extreme/issues/5) | Style editor in RetroBar's Properties window | Needs the UX-003 layer to edit |
 
 > **Style engine design pass:** [STYLE-ENGINE.md](STYLE-ENGINE.md) proposes one engine for sizes, fonts, icons and colours, and reorders the rest of Phase 1 into slices S1–S7. *Decision A (native sizing) taken; B and order open.*
