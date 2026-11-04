@@ -24,14 +24,14 @@ The owner directs, judges and tests; they do not write or debug code. Therefore:
 
 ## Work rules
 
-- **One issue, one branch, one PR for new work.** Task IDs are `UX-###`; check all coordinated repositories before allocating the next ID. Branch names: `ux-###-short-name`. Preserve historical grouped work such as RetroBar PR #24 and identify every linked work item; do not reopen or split completed history to fit this rule.
+- **Normally one issue, one branch, one PR.** Task IDs are `UX-###`; check all coordinated repositories before allocating the next ID. Branch names: `ux-###-short-name`. If the owner explicitly combines dependent issues, record every included issue and its acceptance evidence. Preserve historical grouped work such as RetroBar PR #24 and identify every linked work item; do not reopen or split completed history to fit this rule.
 - **Overview here, detail in the module.** This repo holds the plan ([docs/PROGRAMME.md](docs/PROGRAMME.md)) and checklist. Each work item's full agent instructions, technical notes and progress live in an issue in the module repo it changes; PRs close it with `Closes #N`. Use this repo's issues only for work spanning several modules.
-- **Keep the overview current.** When a module issue is created, finished or re-scoped, update its row in PROGRAMME.md (and PARITY.md if a feature's status changed).
+- **Keep the overview current.** When a module issue is created, finished or re-scoped, update its row in PROGRAMME.md (and PARITY.md if a feature's status changed). Check the module's current default branch, PR state, release and CI. Closed legacy umbrella issues #1–4 are historical copies; module issues own those implementations.
 - **PRs target the fork, never upstream.** Forks default PRs to the parent repo. Always pass the fork explicitly (for example `gh pr create --repo techrote/RetroBar-Extreme --base master`).
 - **Stay mergeable with upstream.** Prefer new files and small, clearly marked hooks into existing code. Do not reformat or reorganise upstream files. Mark fork-only source hooks with a `UXUI-Extreme:` comment using the language's comment syntax (`//` in C#/C++, `<!-- -->` in XAML/XML). Ordinary documentation edits do not need code-comment markers.
 - **Merge when ready.** Squash-merge after the module's own CI is green on the final head and the issue's acceptance criteria are met. Visual/behaviour issues also need the owner's PASS on a CI build, recorded on the issue.
 - **Verify the end state.** Confirm the merge landed and default-branch CI is green; don't assume.
-- **Umbrella changes.** Run `python3 tools/check_docs.py` and `python3 -m unittest discover -s tests -v`; require the umbrella documentation workflow on the final PR head and merged main. A documentation-only change does not create a new Windows visual-test requirement or establish module acceptance.
+- **Umbrella changes.** Run `python3 scripts/check_docs.py` and `python3 -m unittest discover -s tests -v`; require the umbrella documentation workflow on the final PR head and merged main. A documentation-only change does not create a new Windows visual-test requirement or establish module acceptance.
 - **Inspect workflow side effects before dispatch.** The inherited Open-Shell manual-master path signs and publishes; do not dispatch it unchanged as a build-only check. [UX-020](https://github.com/techrote/Open-Shell-Menu-Extreme/issues/1) owns its replacement.
 
 ## Evidence

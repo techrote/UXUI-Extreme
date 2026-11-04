@@ -32,13 +32,15 @@ Each implemented module is a fork of an existing open-source project, kept close
 
 **Open-Shell:** do not use the RetroBar instructions. Its inherited workflow produces an installer and has not been qualified for this suite. [UX-020](https://github.com/techrote/Open-Shell-Menu-Extreme/issues/1) tracks unsigned, non-publishing builds, updater removal and snapshot-VM installation/recovery checks. The owner is not expected to build it.
 
-## Maintaining this repository
+## Repository checks
 
-The [documentation workflow](.github/workflows/docs.yml) checks local links and anchors on pull requests and pushes. Agents can run the same checks with Python 3.10 or later; no third-party packages or network access are needed:
+The [documentation workflow](.github/workflows/docs-quality.yml) checks local links and anchors on pull requests and pushes. Agents can run the same checks with Python 3.10 or later; no third-party packages or network access are needed:
 
 ```bash
-python3 tools/check_docs.py
+python3 scripts/check_docs.py
 python3 -m unittest discover -s tests -v
 ```
 
 These checks protect document navigation. They do not verify remote links, live GitHub status, module compilation or Windows behavior. Update [PROGRAMME](docs/PROGRAMME.md), [PARITY](docs/PARITY.md) and the relevant evidence together when module state changes.
+
+The public `scripts/check_docs.py` entry point delegates to the shared implementation in `tools/check_docs.py`. The [initial audit merged in PR #7](docs/AUDIT-2026-11-04.md) is retained as history; the [extended audit](docs/audits/2026-11-04-quality-audit.md) records the additional findings and integration.

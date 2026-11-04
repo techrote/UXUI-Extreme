@@ -3,6 +3,7 @@
 from contextlib import redirect_stdout
 import io
 from pathlib import Path
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -211,6 +212,19 @@ second line
     def test_malformed_inline_target_is_a_diagnostic(self):
         self.write("README.md", "# Home\n[broken](<unterminated)\n")
         self.assertIn("malformed inline link destination", self.errors()[0])
+
+    def test_compatibility_script_runs_outside_repository_and_preserves_exit_code(self):
+        script = Path(__file__).resolve().parents[1] / "scripts" / "check_docs.py"
+        self.write("README.md", "# Home\n[home](#home)\n")
+        command = [sys.executable, str(script), "--root", str(self.root)]
+        good = subprocess.run(command, cwd=self.root, capture_output=True, text=True, check=False)
+        self.assertEqual(good.returncode, 0, good.stderr)
+        self.assertIn("1 local links; 0 error(s)", good.stdout)
+        self.write("README.md", "# Home\n[broken](missing.md)\n")
+        bad = subprocess.run(command, cwd=self.root, capture_output=True, text=True, check=False)
+        self.assertEqual(bad.returncode, 1, bad.stderr)
+        self.assertIn("README.md:2:", bad.stdout)
+        self.assertIn("local target does not exist", bad.stdout)
 
 
 if __name__ == "__main__":

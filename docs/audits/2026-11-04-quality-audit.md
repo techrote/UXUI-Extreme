@@ -16,6 +16,14 @@ Reviewed every umbrella document and compared its claims with exact module sourc
 
 These are dated observations, not an assertion that a repository never had older activity or that no later work exists. Full heads, rather than mutable branch links, identify the inspected implementation.
 
+## Concurrent audit integration
+
+While this audit was being published, [PR #7](https://github.com/techrote/UXUI-Extreme/pull/7) merged a parallel UX-018 documentation pass as `6f679dc0dfe0a162fc04c299054c2c58e3729e9f`, closing [issue #6](https://github.com/techrote/UXUI-Extreme/issues/6). [PR #8](https://github.com/techrote/UXUI-Extreme/pull/8), owned by earlier issue #5, reconciles against that main rather than replacing its history. The repeated UX-018 label came from concurrent allocation; it is recorded here instead of renumbering completed work.
+
+The [earlier audit](../AUDIT-2026-11-04.md), release chronology, delta layout/icon scope, legacy-issue routing and four original checker regressions are retained. Its mistaken “five Markdown files” count is annotated. The new checker provides one shared implementation in `tools/check_docs.py`; the existing `scripts/check_docs.py` entry point/API delegates to it. There is one documentation workflow at `.github/workflows/docs-quality.yml`, strengthened with pinned checkout, exact-head selection, non-persisted credentials and superseded-run cancellation. The duplicate workflow is removed, so this integration does not double CI work.
+
+The reconciled suite has 19 tests: 14 navigation regressions, the four preserved tests, and a subprocess test of the public entry point from a different working directory. Independent review and final-head CI are repeated after the merge resolution.
+
 ## Findings and implemented umbrella fixes
 
 | Priority | Finding in the baseline | Correction / disposition |
@@ -49,7 +57,7 @@ The following runs all report `head_sha = 65b36c0fba6ef8d8e44294b3ea332b03e32f63
 
 Artifacts `12132522901` (**RetroBar Portable 64-bit**) and `12132687761` (**RetroBar Portable**) were unexpired, with expiry recorded as 16 January 2027. Exact links and prerequisites are in [BUILD-AND-TEST](../BUILD-AND-TEST.md). The normal portable profile is framework-dependent; the workflow selects .NET 10 for Windows 11 and separately labels the .NET 6 Win7-8 artifacts.
 
-The newest observed [prerelease](https://github.com/techrote/RetroBar-Extreme/releases/tag/v1.23.43-extreme-delta.1) was published 18 October 2026 and its tag resolved to the inspected commit. The releases/latest API returned 404 because no non-prerelease latest release was available; the audit used the release collection and exact tag. Release metadata does not itself prove byte-level equivalence to the CI artifact or constitute a new owner test.
+The newest observed [prerelease](https://github.com/techrote/RetroBar-Extreme/releases/tag/v1.23.43-extreme-delta.1) was published 18 October 2026 and its tag resolved to the inspected commit. The releases/latest API returned 404; the audit used the release collection and exact tag so that prereleases were not overlooked. Release metadata does not itself prove byte-level equivalence to the CI artifact or constitute a new owner test.
 
 Key source references:
 
@@ -97,8 +105,10 @@ The repository [Actions run collection](https://api.github.com/repos/techrote/Op
 
 ## Verification and remaining limits
 
-Local validation runs `python3 tools/check_docs.py`, the regression suite under `tests/`, and `git diff --check`. Independent review covers both factual boundaries and validator behavior. The [documentation workflow](../../.github/workflows/docs.yml) runs these Python checks on the exact PR head and merged-main source with read-only contents permission, no persisted checkout credential, no package installation, a five-minute timeout and superseded-run cancellation.
+Local validation runs `python3 scripts/check_docs.py`, the regression suite under `tests/`, and `git diff --check`. Independent review covers both factual boundaries and validator behavior. The [documentation workflow](../../.github/workflows/docs-quality.yml) runs these Python checks on the exact PR head and merged-main source with read-only contents permission, no persisted checkout credential, no package installation, a five-minute timeout and superseded-run cancellation.
 
 The checker intentionally does not make network requests, inspect live CI, compile the module applications or test a Windows desktop. Its fixture suite exercises valid and broken paths/anchors, reference/image syntax, duplicate headings, code exclusion, URL decoding and checkout-boundary handling. Results and final commit identities belong on the integrating PR/issue, so the audit does not predict its own future CI outcome.
 
-Remaining boundaries are the explicitly scoped module work: RetroBar UX-019's compiled/owner acceptance, Open-Shell UX-020's build and VM qualification, and the unresolved styling/parity choices in the programme. No public release, tag, Windows deployment, new visual acceptance or whole-suite offline guarantee is created by the umbrella documentation merge.
+The separate RetroBar repair reached head `497379a10578724dcc15b8cc38c7bc2a2fca0cf6`: [build/package](https://github.com/techrote/RetroBar-Extreme/actions/runs/41754944857), [Extras](https://github.com/techrote/RetroBar-Extreme/actions/runs/41754944914), [Start colourways](https://github.com/techrote/RetroBar-Extreme/actions/runs/41754944882) and [LUT textures](https://github.com/techrote/RetroBar-Extreme/actions/runs/41754944968) all passed. Its [test card/evidence](https://github.com/techrote/RetroBar-Extreme/issues/34#issuecomment-6620164980) records 447 Extras assertions on each of .NET 6 and .NET 10; PR #35 remains draft and unmerged.
+
+Remaining boundaries are RetroBar UX-019's owner acceptance and subsequent merge qualification, Open-Shell UX-020's build and VM qualification, and the unresolved styling/parity choices in the programme. No public release, tag, Windows deployment, new visual acceptance or whole-suite offline guarantee is created by the umbrella documentation merge.

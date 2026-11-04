@@ -21,8 +21,8 @@ The implementation baseline is [`65b36c0`](https://github.com/techrote/RetroBar-
 | Start button opens Open-Shell | Recognition/invocation/placement source exists | Exact module pair and target-Windows behavior unqualified; UX-020 first. |
 | Hover thumbnails | `ShowTaskThumbnails` present | Quality versus owner's expectations needs a focused test. |
 | Jump lists | Not qualified by this audit | Inspect implementation and current-Windows behavior before defining work. |
-| File dragging / task-button reordering | Reordering setting `SlideTaskbarButtons` present | File-drag activation/drop semantics remain unqualified. |
-| Centred task icons with Start left | No matching feature qualified | Future owner priority, not a current promise. |
+| File dragging / task-button reordering | Reordering setting `SlideTaskbarButtons` present | Delta also includes Quick Launch drop improvements; file-drop-to-running-application semantics remain unqualified. |
+| Centred task icons with Start left | Per-row Centre alignment already exists in `TaskRowPanel`; the complete requested arrangement is not owner-qualified here | Test existing row alignment and Start placement together before proposing another centring feature. |
 | Segmented/translucent/floating bar | Blur setting exists | Full floating/segmented design remains unqualified. |
 | Auto-hide, including when covered by a maximised window | Basic auto-hide exists | Do not infer covered-window policy from the basic option. |
 | Multiple monitors | `ShowMultiMon`, `MultiMonMode` present | Test exact monitors, DPI changes and recovery separately. |
@@ -32,6 +32,7 @@ The implementation baseline is [`65b36c0`](https://github.com/techrote/RetroBar-
 | Start recolouring | UX-010 implemented in a separate image pipeline | Not a brush part in `StyleMap`; protect source image/flag behavior. |
 | LUT textures, angles and coherent patterns | UX-011/013 plus delta refinements implemented | Visual tiling/readability still depends on the selected style and scale. |
 | PNG icons, tray-toggle image, per-app buttons | UX-014–016 merged | Persistence/fallback and exact layout require build-specific evidence. |
+| Per-row app layout, alignment and height; Start/Quick and Icons controls | Delta implementation in PR #31/#33 | Preserve recorded scope; no per-feature current-build owner PASS inferred from release notes. |
 | Complete style/configuration export | Style files export colour/texture/Start/border state | Theme/fonts/layout stay in settings; full configuration export remains proposed. |
 | No automatic upstream updater | **Not met by inspected master** | [UX-019](https://github.com/techrote/RetroBar-Extreme/issues/34) repairs runtime and installer probes; older builds remain affected. |
 

@@ -6,9 +6,9 @@ Order of work across the suite. Module issues contain implementation instruction
 
 | Work | Status and next step |
 |---|---|
-| Umbrella rules, plan and evidence | [UX-018](https://github.com/techrote/UXUI-Extreme/issues/5): this audit reconciles the documentation and adds offline navigation checks/CI. |
+| Umbrella rules, plan and evidence | [UX-018](https://github.com/techrote/UXUI-Extreme/issues/5): [PR #7](https://github.com/techrote/UXUI-Extreme/pull/7) delivered initial reconciliation; [PR #8](https://github.com/techrote/UXUI-Extreme/pull/8) extends build/evidence corrections and consolidates the checks. The concurrent [issue #6](https://github.com/techrote/UXUI-Extreme/issues/6) is retained as closed history. |
 | RetroBar build route | Portable artifacts and installer CI passed at `65b36c0`; [exact downloads and runtime prerequisites](BUILD-AND-TEST.md). |
-| RetroBar upstream updater | [UX-019](https://github.com/techrote/RetroBar-Extreme/issues/34), [draft PR #35](https://github.com/techrote/RetroBar-Extreme/pull/35): application and installer probes repaired on the branch; native CI and owner acceptance remain module gates. |
+| RetroBar upstream updater | [UX-019](https://github.com/techrote/RetroBar-Extreme/issues/34), [draft PR #35](https://github.com/techrote/RetroBar-Extreme/pull/35): application and installer probes repaired at `497379a`; [all four Windows workflows passed](https://github.com/techrote/RetroBar-Extreme/issues/34#issuecomment-6620164980). Owner acceptance and module merge remain pending. |
 | Open-Shell fork build and offline policy | [UX-020](https://github.com/techrote/Open-Shell-Menu-Extreme/issues/1): unsigned, non-publishing CI; reconcile inherited updater; produce a qualified installer. No fork CI evidence was available at inspection. |
 | Windows VM with snapshots | Still required before Open-Shell/other Explorer-injecting tests. Record install, login, exit, uninstall and stock-shell recovery on the exact Windows build before any daily-machine test. |
 
@@ -17,6 +17,8 @@ The Open-Shell inherited manual workflow includes signing and release publicatio
 ## Phase 1 — RetroBar implementation and acceptance
 
 The newest observed personal prerelease is [v1.23.43-extreme-delta.1](https://github.com/techrote/RetroBar-Extreme/releases/tag/v1.23.43-extreme-delta.1), whose tag resolves to inspected `master` `65b36c0`. Earlier alpha releases are historical, not the current task list. This is a prerelease label, not a declaration of production readiness.
+
+Historical release sequence: [alpha 1](https://github.com/techrote/RetroBar-Extreme/releases/tag/v1.23.31-extreme-alpha.1) → [alpha 2](https://github.com/techrote/RetroBar-Extreme/releases/tag/v1.23.32-extreme-alpha.2) → [alpha 3](https://github.com/techrote/RetroBar-Extreme/releases/tag/v1.23.34-extreme-alpha.3) → [alpha 4](https://github.com/techrote/RetroBar-Extreme/releases/tag/v1.23.35-extreme-alpha.4) → [beta 1](https://github.com/techrote/RetroBar-Extreme/releases/tag/v1.23.38-extreme-beta.1) → [beta 2](https://github.com/techrote/RetroBar-Extreme/releases/tag/v1.23.39-extreme-beta.2) → [delta 1](https://github.com/techrote/RetroBar-Extreme/releases/tag/v1.23.43-extreme-delta.1).
 
 The first-impression work was developed in the following order. **Merged** means the change is in the inspected source. **Recorded owner report** links the historical issue record; exactness varies and is detailed in the audit.
 
@@ -37,10 +39,10 @@ The first-impression work was developed in the following order. **Merged** means
 | [UX-013 / #25](https://github.com/techrote/RetroBar-Extreme/issues/25) | Texture angle/patterns and borders | [PR #24](https://github.com/techrote/RetroBar-Extreme/pull/24) merged; issue closed | Same qualification boundary as UX-012. Later delta changes also affect these controls. |
 | [UX-014 / #26](https://github.com/techrote/RetroBar-Extreme/issues/26) | Global/per-app task-button controls | [PR #24](https://github.com/techrote/RetroBar-Extreme/pull/24) merged; issue closed | Same qualification boundary as UX-012. |
 | [UX-015 / #27](https://github.com/techrote/RetroBar-Extreme/issues/27) | Custom Start/quick-launch PNG icons and size sets | [PR #24](https://github.com/techrote/RetroBar-Extreme/pull/24) merged; issue closed | Previously missing from this overview; source support does not certify every DPI/image. |
-| [UX-016 / #28](https://github.com/techrote/RetroBar-Extreme/issues/28) | Tray-toggle image and margins | [PR #24](https://github.com/techrote/RetroBar-Extreme/pull/24) merged; issue closed | Previously missing from this overview; owner qualification remains separately recorded. |
+| [UX-016 / #28](https://github.com/techrote/RetroBar-Extreme/issues/28) | Tray-toggle image, mirroring and margins | [PR #24](https://github.com/techrote/RetroBar-Extreme/pull/24) merged; issue closed | Previously missing from this overview; owner qualification remains separately recorded. |
 | [UX-017 / #29](https://github.com/techrote/RetroBar-Extreme/issues/29) | 24 built-in font families, example styles and Extras packaging | [PR #30](https://github.com/techrote/RetroBar-Extreme/pull/30) merged; issue closed | Contract/build evidence exists; no separate exact-head owner PASS recovered. |
 
-PR #24 historically grouped UX-012–016. Its merge `dba7b477622ebc54f47c3149a7292ed6d3f42051` supersedes the old “in PR / awaiting merge” rows. PR #30 merged as `c51ee1c97f1976cd315f7df1588d7d7911462f93`. Later [PR #31](https://github.com/techrote/RetroBar-Extreme/pull/31) and [PR #33](https://github.com/techrote/RetroBar-Extreme/pull/33) lead to the current delta source. Release narratives report daily use; they do not substitute for an exact-build owner acceptance record for every change.
+PR #24 historically grouped UX-012–016. Its merge `dba7b477622ebc54f47c3149a7292ed6d3f42051` supersedes the old “in PR / awaiting merge” rows. PR #30 merged as `c51ee1c97f1976cd315f7df1588d7d7911462f93`. Later [PR #31](https://github.com/techrote/RetroBar-Extreme/pull/31) and [PR #33](https://github.com/techrote/RetroBar-Extreme/pull/33) add Start/Quick and Icons controls, per-row app layout/alignment/height, extended texture/style controls and stability fixes in the current delta source. Release narratives report daily use; they do not substitute for an exact-build owner acceptance record for every change.
 
 Remaining styling choices are in [STYLE-ENGINE](STYLE-ENGINE.md): native scaling is resolved, bundled fonts already exist, while arbitrary private-font loading, automatic tray brightness policy and full configuration export remain proposals. Do not restart merged slices from the old design order.
 
@@ -57,3 +59,10 @@ Start with [UX-020](https://github.com/techrote/Open-Shell-Menu-Extreme/issues/1
 ## Phase 4 — Extreme extras
 
 Ratrod skin pack, whole-window skinning and further owner-selected additions. No window-skinning module has been chosen. Existing RetroBar textures, example styles and embedded fonts are implemented groundwork, not evidence of a whole-window skinning engine.
+
+## Updating this programme
+
+1. Read the module default branch, issues, PRs, checks and releases; record the checked date and exact SHA.
+2. Distinguish merged source, green CI, release-noted daily use and an exact-build owner PASS.
+3. Update this programme, [PARITY](PARITY.md), [RAG](../RAG.md) and linked evidence together.
+4. Run the [repository checks](../README.md#repository-checks). They validate local navigation, not live module status or Windows outcomes.

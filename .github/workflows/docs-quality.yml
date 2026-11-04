@@ -1,4 +1,4 @@
-name: Documentation integrity
+name: Documentation quality
 
 on:
   pull_request:
@@ -24,6 +24,6 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
       - name: Validate documentation navigation
-        run: python3 tools/check_docs.py
+        run: python3 scripts/check_docs.py
       - name: Exercise broken-link and parser regressions
         run: python3 -m unittest discover -s tests -v

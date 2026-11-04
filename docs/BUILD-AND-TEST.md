@@ -54,7 +54,7 @@ Open-Shell's Explorer hooks and cleanup functions were reviewed, not executed he
 
 ## Agent validation boundaries
 
-The umbrella's [documentation workflow](../.github/workflows/docs.yml) validates local Markdown links/anchors and exercises the validator with intentionally broken fixtures. It is read-only, offline after checkout, has a bounded timeout and cancels superseded runs. It does **not** compile either Windows module or poll their live status.
+The umbrella's [documentation workflow](../.github/workflows/docs-quality.yml) validates local Markdown links/anchors and exercises the validator with intentionally broken fixtures. It is read-only, offline after checkout, has a bounded timeout and cancels superseded runs. It does **not** compile either Windows module or poll their live status.
 
 The validator supports ordinary inline/reference links and images, GitHub-style Markdown heading fragments and duplicate headings. It skips code fences/spans and external URLs. It is not a complete CommonMark/HTML/MDX renderer; container-specific/indented code and raw HTML navigation need review if introduced. Its [fixture tests](../tests/test_check_docs.py) define the supported cases.
 
