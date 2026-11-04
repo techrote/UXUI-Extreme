@@ -12,9 +12,9 @@ import sys
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
-LINK = re.compile(r"!?\\[[^\\]\n]*\\]\\(([^)\n]+)\\)")
-FENCE = re.compile(r"^\\s*(`{3,}|~{3,})")
-HEADING = re.compile(r"^\\s{0,3}(#{1,6})\\s+(.+?)\\s*#*\\s*$")
+LINK = re.compile(r"!?\[[^\]\n]*\]\(([^)\n]+)\)")
+FENCE = re.compile(r"^\s*(`{3,}|~{3,})")
+HEADING = re.compile(r"^\s{0,3}(#{1,6})\s+(.+?)\s*#*\s*$")
 INLINE_CODE = re.compile(r"`+[^`\n]*`+")
 
 
@@ -44,9 +44,9 @@ def heading_anchors(markdown: str) -> set[str]:
         match = HEADING.match(line)
         if not match:
             continue
-        label = re.sub(r"!?\\[([^]]+)\\]\\([^)]+\\)", r"\\1", match.group(2))
+        label = re.sub(r"!?\[([^]]+)\]\([^)]+\)", r"\1", match.group(2))
         label = re.sub(r"<[^>]+>", "", label).casefold()
-        slug = re.sub(r"[^\\w\\- ]", "", label).replace(" ", "-")
+        slug = re.sub(r"[^\w\- ]", "", label).replace(" ", "-")
         if not slug:
             continue
         suffix = counts.get(slug, 0)
