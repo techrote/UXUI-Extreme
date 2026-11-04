@@ -1,0 +1,21 @@
+name: Documentation quality
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  docs:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Unit-test Markdown checker
+        run: python3 -m unittest discover -s tests -v
+      - name: Validate documentation links and anchors
+        run: python3 scripts/check_docs.py

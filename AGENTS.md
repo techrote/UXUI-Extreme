@@ -24,9 +24,10 @@ The owner directs, judges and tests; they do not write or debug code. Therefore:
 
 ## Work rules
 
-- **One issue, one branch, one PR.** Task IDs are `UX-###`. Branch names: `ux-###-short-name`.
+- **Normally one issue, one branch, one PR.** Task IDs are `UX-###`; branch names are `ux-###-short-name`. If the owner explicitly combines dependent issues in one PR (as happened with RetroBar PR #24, UX-012–016), record every included issue and its acceptance evidence; do not claim that each issue had a separate PR.
 - **Overview here, detail in the module.** This repo holds the plan ([docs/PROGRAMME.md](docs/PROGRAMME.md)) and checklist. Each work item's full agent instructions, technical notes and progress live in an issue in the module repo it changes; PRs close it with `Closes #N`. Use this repo's issues only for work spanning several modules.
-- **Keep the overview current.** When a module issue is created, finished or re-scoped, update its row in PROGRAMME.md (and PARITY.md if a feature's status changed).
+- **Keep the overview current.** When a module issue is created, finished or re-scoped, update its row in PROGRAMME.md (and PARITY.md if a feature's status changed). Check the module's *current default branch, PR state, release and CI*, not just old umbrella issue text. The four closed legacy umbrella issues (#1–4) are historical copies; module issues own their respective implementations.
+- **Documentation CI:** after changing Markdown, run `python3 -m unittest discover -s tests -v` and `python3 scripts/check_docs.py`. These offline checks do **not** verify remote GitHub issue state or Windows behaviour; record the live evidence separately.
 - **PRs target the fork, never upstream.** Forks default PRs to the parent repo. Always pass the fork explicitly (for example `gh pr create --repo techrote/RetroBar-Extreme --base master`).
 - **Stay mergeable with upstream.** Prefer new files and small, clearly marked hooks into existing code. Do not reformat or reorganise upstream files. Mark fork-only edits with a `// UXUI-Extreme:` comment.
 - **Merge when ready.** Squash-merge after the module's own CI is green on the final head and the issue's acceptance criteria are met. Visual/behaviour issues also need the owner's PASS on a CI build, recorded on the issue.
@@ -40,7 +41,7 @@ Keep these separate and say which you have:
 - **reviewed** — code reasoning only;
 - **owner-tested** — the owner ran the exact CI build and reported the result.
 
-A green build proves it compiles, not that it looks or behaves right. Rendering, fonts and colour work are perceptual: the owner's eyes on a real screen are the acceptance test. Never claim owner-tested without their reply.
+A green build proves it compiles, not that it looks or behaves right. Rendering, fonts and colour work are perceptual: the owner's eyes on a real screen are the acceptance test. Never claim owner-tested without their reply or an explicit, source-linked owner acceptance record. A release description calling a build owner-tested does not establish that every feature was independently accepted.
 
 ## Safety
 

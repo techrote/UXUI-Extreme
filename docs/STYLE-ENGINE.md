@@ -1,6 +1,8 @@
 # Style engine — design pass
 
-*12 Oct 2026 · status: **accepted in part**: Decision A decided (native sizing); B and slice order still open (❓)*
+*Historical design authored 12 October 2026; reconciled 4 November 2026. Decision A is shipped. This is **not** the current work queue; see [PROGRAMME.md](PROGRAMME.md) for the delivered baseline.*
+
+**Implementation clarification (4 November):** UX-005 through UX-017 and subsequent delta changes shipped after this proposal. Native sizing is the default, the Colours tab edits per-part overrides, named examples are saved via Styles, and 24 fonts are built into RetroBar. Arbitrary private-font directory loading and brightness-driven tray inversion must **not** be inferred from those milestones. This file preserves the original design trade-offs, including unselected proposals.
 
 One part of RetroBar-Extreme that owns **how the taskbar looks**: sizes, text, fonts, icons and colours. All of it is driven by one saved *style* the owner can edit, and it works on top of any built-in theme.
 
@@ -36,7 +38,7 @@ This is how classic Windows itself handled bigger text: it changed sizes, it did
 | Option | What it means | Pros | Cons |
 |---|---|---|---|
 | **A1. Native sizing** *(recommended)* | *Taskbar scale* multiplies theme sizes (heights, widths, margins, font size) and picks real icon sizes; nothing is stretched | Crisp everything at any percentage, 1px lines stay 1px, no special text tricks needed | Themes hard-code some details (padding inside templates), so a few may look cramped or need small per-theme fixes; biggest single change |
-| A2. Stretch + fix-ups *(current)* | Keep the stretch; counter-scale text (done), later icons | Already partly built; every theme works unchanged | Bevels and lines still blur at in-between scales; every new element needs its own fix-up |
+| A2. Stretch + fix-ups *(historical upstream behaviour)* | Keep the stretch; counter-scale text (done), later icons | Already partly built; every theme works unchanged | Bevels and lines still blur at in-between scales; every new element needs its own fix-up |
 | A3. Both, switchable | A1 as the new mode, A2 kept as "classic stretch" | Safe fallback per theme | Two code paths to keep working |
 
 Implemented as UX-006 ([#9](https://github.com/techrote/RetroBar-Extreme/issues/9), [PR #10](https://github.com/techrote/RetroBar-Extreme/pull/10)): theme XAML is rescaled with whole-pixel rounding as it loads; borders and strokes are not scaled. The UX-002 counter-scale only runs in stretch mode.
@@ -75,7 +77,7 @@ From UX-003, with the theme-key map still the first job:
 
 ## Styles: one saved thing
 
-A **style** = base theme + overrides (geometry, font, colours, icon size). It is saved as a small file in `%LOCALAPPDATA%\RetroBar\Styles\`, switchable and exportable. The Properties **Style** tab (started in UX-005, finished in UX-004) edits the active style live. A broken style file never stops RetroBar starting: it logs and falls back to the plain theme.
+The original **style** design combined base theme + overrides (geometry, font, colours, icon size). In the shipped UX-003/004 implementation, `%LOCALAPPDATA%\RetroBar\Style.json` contains active colour/texture overrides, while `%LOCALAPPDATA%\RetroBar\Styles\` holds named styles. Properties separates **Style** (font/scaling) and **Colours** (overrides and saved styles); newer delta builds add further tabs. Broken active styles should fall back safely, per UX-003 acceptance.
 
 ## Slices (each one a normal issue → PR → owner test)
 
@@ -84,14 +86,14 @@ A **style** = base theme + overrides (geometry, font, colours, icon size). It is
 | S1 | Font settings + row growth (**PR #8, UX-005**) | — | ✅ Merged, owner-tested |
 | S2 | **Native sizing** (Decision A) — UX-006 | S1 | ✅ Merged, owner-tested. Owner will mostly run at **100% scale with larger fonts** |
 | S3 | Real-size icons | S2 | Owner: icons already look fine after S2; low priority |
-| S4 | Private fonts folder + first prepared/curated fonts | S1 | Pairs with Decision B |
+| S4 | Private fonts folder + first prepared/curated fonts | S1 | **Partially satisfied** by UX-017, [PR #30](https://github.com/techrote/RetroBar-Extreme/pull/30): 24 bundled, ready-to-use fonts. Arbitrary private font folder support is not verified. |
 | S5 | Theme-key map + colour layer (UX-003) | S2 | ✅ Merged (PR #15), owner-tested. Map: [STYLE-MAP.md](STYLE-MAP.md) |
 | S6 | Style files + editor (UX-004) | S5 | ✅ Merged (PR #16), owner-tested: Colours tab, named styles in `Styles\`. Fonts stay as settings for now |
-| S7 | Brightness-based tray inversion and contrast warnings | S5 | Closes UX-001's leftovers |
+| S7 | Brightness-based tray inversion and contrast warnings | S5 | **Proposal only**; do not confuse with UX-001's shipped live inversion-settings fix. Not verified implemented. |
 
-## Owner decisions needed
+**Historical decision outcomes**
 
-- ✅ **A — scaling model:** native sizing is default and target (owner, 12 Oct).
-- ❓ **B — font preparation:** B1 now (agent-made packs), maybe B2 later?
-- ❓ **Order:** S2 (native sizing) next, or S4 (fonts folder) first?
-- Feedback wanted: plain **Orbitron** vs **Orbitron Hinted** at a few sizes.
+- **A — scaling:** native sizing was selected, implemented in UX-006 and shipped.
+- **B — preparation:** UX-017 later supplied 24 embedded fonts. This does not prove that an arbitrary private font import workflow was implemented.
+- **Order:** S2 and the supported part of S4 have already shipped. Original sequencing questions are archived, not active blockers.
+- **Residual future work:** evaluate brightness-based inversion, contrast warnings and additional font import only with new module issues and owner acceptance.
