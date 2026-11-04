@@ -8,14 +8,22 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: docs-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   docs:
+    name: Local links and validator regressions
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
-      - name: Check out source
-        uses: actions/checkout@v4
-      - name: Unit-test Markdown checker
-        run: python3 -m unittest discover -s tests -v
-      - name: Validate documentation links and anchors
+      - name: Check out the source being qualified
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4, resolved 2026-11-04
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Validate documentation navigation
         run: python3 scripts/check_docs.py
+      - name: Exercise broken-link and parser regressions
+        run: python3 -m unittest discover -s tests -v

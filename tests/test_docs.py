@@ -22,8 +22,8 @@ class DocumentationCheckerTests(unittest.TestCase):
             (root / "a.md").write_text("# Hello\n[bad](missing.md)\n[bad heading](a.md#absent)\n")
             errors = check_repository(root)
             self.assertEqual(2, len(errors))
-            self.assertIn("missing local target", errors[0])
-            self.assertIn("missing heading", errors[1])
+            self.assertIn("local target does not exist", errors[0])
+            self.assertIn("heading fragment #absent does not exist", errors[1])
 
     def test_fences_inline_code_external_and_escaped_paths(self):
         with tempfile.TemporaryDirectory() as directory:

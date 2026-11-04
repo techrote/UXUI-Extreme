@@ -1,52 +1,46 @@
 # UXUI-Extreme
 
-A coordination and design repository for a personal, modular Windows UI suite. It tracks work and constraints; **there is no executable application or installer in this repository**. Code, CI builds and releases are in the module forks.
+A personal, modular Windows 11 UI-modding suite: a StartAllBack replacement first, then whatever else Windows should have let us change.
 
-The source and binaries are publicly accessible, but the project is personal-use oriented, unsigned and unsupported for general deployment. Follow each fork's upstream licence and the licences of bundled assets.
+This repository holds the plan, evidence and development rules. The Windows applications live in the module repositories below. Public fork repositories and prerelease downloads exist for personal testing; this is not a supported general-purpose distribution.
 
-## Modules
+## How it fits together
 
-| Module | Fork / implementation | Purpose | Upstream |
+Each implemented module is a fork of an existing open-source project, kept close to its upstream so fixes can be integrated. Module issues own implementation details; this repository tracks their relationships and suite-wide work.
+
+| Module | Repo | Job | Upstream |
 |---|---|---|---|
-| Taskbar | [RetroBar-Extreme](https://github.com/techrote/RetroBar-Extreme) | Replacement taskbar, labels, tray, style/layout controls | [dremin/RetroBar](https://github.com/dremin/RetroBar) (Apache-2.0) |
-| Start menu / Explorer | [Open-Shell-Menu-Extreme](https://github.com/techrote/Open-Shell-Menu-Extreme) | Classic Start menu, selected Explorer integration | [Open-Shell/Open-Shell-Menu](https://github.com/Open-Shell/Open-Shell-Menu) (MIT) |
-| Whole-window skins | Not started | Potential future module | Not selected |
+| Taskbar | [RetroBar-Extreme](https://github.com/techrote/RetroBar-Extreme) | Replacement taskbar: labels, tray, clock, themes | [dremin/RetroBar](https://github.com/dremin/RetroBar) (Apache-2.0, C#/WPF) |
+| Start menu | [Open-Shell-Menu-Extreme](https://github.com/techrote/Open-Shell-Menu-Extreme) | Classic Start menu; Explorer toolbar/status bar | [Open-Shell/Open-Shell-Menu](https://github.com/Open-Shell/Open-Shell-Menu) (MIT, C++) |
+| Window skins | not started | WindowBlinds-style whole-window theming | to be chosen |
 
-## Verified delivery baseline
+**State checked 4 November 2026:** RetroBar's UX-001–017 implementations are merged; UX-002 follow-up remains open. Its build and three contract workflows passed at `65b36c0`. Open-Shell source was inspected at `e1fe220`, but no fork CI run or release was returned. An unsigned, non-publishing build, updater-policy changes and VM recovery qualification remain prerequisites. The [audit record](docs/audits/2026-11-04-quality-audit.md) supplies exact commits, runs and historical owner reports. Recheck live state before new work; compilation does not establish new owner acceptance.
 
-As of **4 November 2026**, RetroBar-Extreme's latest verified published release is **[v1.23.43-extreme-delta.1](https://github.com/techrote/RetroBar-Extreme/releases/tag/v1.23.43-extreme-delta.1)** (published 18 October from `master` `65b36c0`).
+## Where things are
 
-- [Download RetroBar-Extreme portable ZIP](https://github.com/techrote/RetroBar-Extreme/releases/download/v1.23.43-extreme-delta.1/RetroBar-Extreme-Portable.zip) — contains multiple platform builds; select the appropriate Windows build folder.
-- [Release notes and other downloads](https://github.com/techrote/RetroBar-Extreme/releases/tag/v1.23.43-extreme-delta.1) — installer and Extras package.
-- [Latest verified RetroBar build run](https://github.com/techrote/RetroBar-Extreme/actions/runs/39116769177) — source-bound CI success, **not** a visual qualification.
+- **What we're doing and in what order:** [docs/PROGRAMME.md](docs/PROGRAMME.md)
+- **StartAllBack feature checklist:** [docs/PARITY.md](docs/PARITY.md)
+- **How the taskbar's look is controlled (design):** [docs/STYLE-ENGINE.md](docs/STYLE-ENGINE.md)
+- **Which theme resources the colour layer changes:** [docs/STYLE-MAP.md](docs/STYLE-MAP.md)
+- **Build downloads, prerequisites and test handoff:** [docs/BUILD-AND-TEST.md](docs/BUILD-AND-TEST.md)
+- **Work items:** detailed issues live in each module repo ([RetroBar-Extreme](https://github.com/techrote/RetroBar-Extreme/issues), [Open-Shell-Menu-Extreme](https://github.com/techrote/Open-Shell-Menu-Extreme/issues)). This repo keeps the overview; its own issues are only for work spanning several modules.
+- **Rules for agents:** [AGENTS.md](AGENTS.md), then [RAG.md](RAG.md)
 
-The fork includes native sizing, fonts and clock controls, colour and texture editing, saved styles, per-app task-button overrides, Start/Quick and Icons controls, and task-row layout. See [the programme](docs/PROGRAMME.md) for feature provenance and [the parity checklist](docs/PARITY.md) for remaining gaps.
+## Trying a build
 
-## Testing and recovery
+**RetroBar:** use the exact portable artifact named on the work item. The [inspected x64 CI artifact](https://github.com/techrote/RetroBar-Extreme/actions/runs/39116769177/artifacts/12132522901) is named **RetroBar Portable 64-bit**, built from `65b36c0`. It needs the matching **.NET 10 Desktop Runtime for Windows x64**; portable describes the application packaging, not an absence of runtime or saved settings. Read the [build guide](docs/BUILD-AND-TEST.md) before replacing a daily build.
 
-RetroBar-Extreme replaces the taskbar **as a separate application**, not by injecting a replacement Explorer taskbar. On the documented configuration, closing RetroBar returns the standard Windows taskbar. Try an unsigned portable release cautiously and ensure normal taskbar recovery on the target Windows build. Some Open-Shell/Explorer integration changes require a snapshotted VM before real-machine testing. Portable builds may require the Microsoft .NET Desktop Runtime.
-
-A successful GitHub Actions build establishes compilation/test results, not good appearance or behaviour on the owner's screen. Release notes may report owner use; feature-specific visual acceptance must be recorded separately.
-
-## Repository navigation
-
-- [PROGRAMME.md](docs/PROGRAMME.md) — current milestones, accepted implementation and planned phases.
-- [PARITY.md](docs/PARITY.md) — StartAllBack feature comparison, with evidence levels.
-- [STYLE-ENGINE.md](docs/STYLE-ENGINE.md) and [STYLE-MAP.md](docs/STYLE-MAP.md) — design history and theme-resource mapping.
-- [RAG.md](RAG.md) — current engineering facts, decisions and baselines.
-- [AGENTS.md](AGENTS.md) — engineering, acceptance and safety rules.
-- [Audit / remediation record](docs/AUDIT-2026-11-04.md) — findings, fixes and residual risks.
-- [Cross-module tracker](https://github.com/techrote/UXUI-Extreme/issues/6) — UX-018.
-
-Implementation issues belong in the module forks. Older umbrella issues #1–4 are closed historical copies and should not be mistaken for active module defects.
+**Open-Shell:** do not use the RetroBar instructions. Its inherited workflow produces an installer and has not been qualified for this suite. [UX-020](https://github.com/techrote/Open-Shell-Menu-Extreme/issues/1) tracks unsigned, non-publishing builds, updater removal and snapshot-VM installation/recovery checks. The owner is not expected to build it.
 
 ## Repository checks
 
-Documentation changes are checked for broken local links and heading anchors in GitHub Actions. To reproduce locally with Python 3.11+:
+The [documentation workflow](.github/workflows/docs-quality.yml) checks local links and anchors on pull requests and pushes. Agents can run the same checks with Python 3.10 or later; no third-party packages or network access are needed:
 
-```sh
-python3 -m unittest discover -s tests -v
+```bash
 python3 scripts/check_docs.py
+python3 -m unittest discover -s tests -v
 ```
 
-These offline checks cannot prove that remote module status is current, that a build runs on Windows, or that the owner has accepted its visuals.
+These checks protect document navigation. They do not verify remote links, live GitHub status, module compilation or Windows behavior. Update [PROGRAMME](docs/PROGRAMME.md), [PARITY](docs/PARITY.md) and the relevant evidence together when module state changes.
+
+The public `scripts/check_docs.py` entry point delegates to the shared implementation in `tools/check_docs.py`. The [initial audit merged in PR #7](docs/AUDIT-2026-11-04.md) is retained as history; the [extended audit](docs/audits/2026-11-04-quality-audit.md) records the additional findings and integration.
