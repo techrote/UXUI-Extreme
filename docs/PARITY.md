@@ -1,54 +1,59 @@
 # StartAllBack parity checklist
 
-What StartAllBack does, whether stock RetroBar / Open-Shell already covers it, and what we plan. Owner priorities are marked ★.
+**Reconciled 4 November 2026** against the [RetroBar-Extreme delta 1 release](https://github.com/techrote/RetroBar-Extreme/releases/tag/v1.23.43-extreme-delta.1), [current `master`](https://github.com/techrote/RetroBar-Extreme/commit/65b36c0fba6ef8d8e44294b3ea332b03e32f638c) and [module README](https://github.com/techrote/RetroBar-Extreme). This is a capability inventory, **not** a physical test matrix or a claim of full StartAllBack compatibility.
 
-Status key: ✅ have it · 🟡 partly · ❌ missing · ❓ unchecked. "Stock" means unmodified upstream, as read from its settings and code (not yet owner-tested unless noted).
+**Legend:** ✅ implemented or documented in current fork; 🟡 partly implemented or behaviour not qualified; ❌ missing/not known implemented; ❓ not checked on the target build. The mark does not itself mean owner visual PASS. ★ denotes the owner's known priority.
 
-## Taskbar (RetroBar-Extreme)
+## Taskbar — RetroBar-Extreme
 
-| Feature | Stock | Plan |
+| Feature | Current fork status | Evidence / remaining qualification |
 |---|---|---|
-| ★ Labels with window titles | ✅ | — |
-| ★ Never combine (one button per window) | ✅ RetroBar doesn't group | Optional grouping later, if wanted |
-| ★ Slim bar / small icons / adjustable size | 🟡 overall scale only (`TaskbarScale`) | Separate icon size, margins, button width |
-| ★ Crisp text when scaled | 🟡 opt-in native-size mode (owner: better; font choice next) | [UX-002](https://github.com/techrote/RetroBar-Extreme/issues/3) |
-| ★ Custom fonts (family, size, weight) | ❌ theme XAML only | [UX-005](https://github.com/techrote/RetroBar-Extreme/issues/7) |
-| ★ Custom colours, gradients | 🟡 hand-written theme XAML only | [UX-003](https://github.com/techrote/RetroBar-Extreme/issues/4) |
-| ★ Tray icon colour inversion settings work | 🟡 works once icons are ticked by hand; defaults don't match 26H2 (owner-tested) | UX-001 ✅; defaults in [UX-003](https://github.com/techrote/RetroBar-Extreme/issues/4) |
-| Middle-click, Win+number hotkeys | ✅ (owner-liked) | — |
-| Move to top/left/right edge | ✅ `Edge` | — |
-| Multi-row / width | ✅ `RowCount`, `TaskbarWidth` | — |
-| Start button opens Open-Shell menu | ❓ | Phase 2 |
-| Window thumbnails on hover | ✅ `ShowTaskThumbnails` | Check quality vs StartAllBack |
-| Jump lists | ❓ | Phase 2 |
-| Drag files onto task buttons / reorder buttons | 🟡 reorder (`SlideTaskbarButtons`) | Phase 2 |
-| Centred task icons, Start on left | ❌ | Later |
-| Segmented / translucent bar ("Aura", floating) | 🟡 `AllowBlurBehind` | Phase 4 |
-| Auto-hide, incl. "when covered by a maximised window" | 🟡 plain auto-hide | Phase 2 |
-| Multi-monitor taskbars | ✅ `ShowMultiMon`, `MultiMonMode` | — |
-| Badges (unread counts) | ✅ `ShowTaskBadges` | — |
-| Clock with seconds / custom format | ✅ | — |
-| Volume on mouse wheel over tray icon | ✅ | — |
-| Mic mute on middle-click | ❌ | Phase 2 |
-| Network/battery/volume flyouts | ❓ opens Windows' own | Check in Phase 2 |
+| ★ Window titles on task buttons | ✅ stock RetroBar | Validate long titles, high DPI and multiple monitors |
+| ★ Never combine window buttons | ✅ stock RetroBar | Optional future grouping only |
+| ★ Slim bar, small icons and geometry controls | 🟡 native scale, row adjustments, layout, button widths | No blanket assertion that every icon/tray size is independently controllable |
+| ★ Crisp text at awkward scaling | ✅ native sizing default; sharp stretch modes available | [UX-002](https://github.com/techrote/RetroBar-Extreme/issues/3), [UX-006](https://github.com/techrote/RetroBar-Extreme/issues/9); font-specific results vary |
+| ★ Custom fonts (family, size, weight, italic, spacing) | ✅ controls and 24 built-in fonts | [UX-005](https://github.com/techrote/RetroBar-Extreme/issues/7), [UX-017](https://github.com/techrote/RetroBar-Extreme/issues/29) |
+| ★ Custom colours, gradients, textures and borders | ✅ style layer/editor, per-part controls | [UX-003](https://github.com/techrote/RetroBar-Extreme/issues/4), [UX-004](https://github.com/techrote/RetroBar-Extreme/issues/5), [delta 1](https://github.com/techrote/RetroBar-Extreme/releases/tag/v1.23.43-extreme-delta.1) |
+| ★ Live tray icon inversion settings | ✅ stale inversion effect fixed | [UX-001](https://github.com/techrote/RetroBar-Extreme/issues/2); automatic brightness-based inversion still only a design proposal |
+| ★ Global and per-app task-button widths/icons/labels | ✅ persisted options | [UX-014](https://github.com/techrote/RetroBar-Extreme/issues/26), merged [PR #24](https://github.com/techrote/RetroBar-Extreme/pull/24) |
+| ★ Vertical Start and clock, Show Desktop placement | ✅ Layout/Start-Quick controls | [UX-012](https://github.com/techrote/RetroBar-Extreme/issues/22), [delta 1](https://github.com/techrote/RetroBar-Extreme/releases/tag/v1.23.43-extreme-delta.1) |
+| ★ Custom PNG Start, quick launch and tray controls | ✅ Icons/Start-Quick controls | [UX-015](https://github.com/techrote/RetroBar-Extreme/issues/27), [UX-016](https://github.com/techrote/RetroBar-Extreme/issues/28), delta release |
+| ★ Per-row app layout, alignment and height | ✅ added by delta polish | [Delta 1](https://github.com/techrote/RetroBar-Extreme/releases/tag/v1.23.43-extreme-delta.1) |
+| Middle-click task buttons and Win+number hotkeys | ✅ stock, previously owner-liked | Check regressions against module build |
+| Move taskbar to top/left/right | ✅ stock RetroBar Edge | Vertical Start/clock rotation is not claimed applicable on side bars |
+| Multi-row taskbar / adjustable width | ✅ stock rows and fork layout controls | Verify row wrapping with extreme scales |
+| Window thumbnails on hover | ✅ stock option `ShowTaskThumbnails` | Qualify parity with StartAllBack |
+| Drag files onto task buttons / reorder | 🟡 stock button reorder; Quick Launch drop improved | File-drop-to-running-app behaviour not verified |
+| Multi-monitor taskbars | ✅ stock `ShowMultiMon` / `MultiMonMode` | No full real-world DPI/mixed-monitor acceptance on record here |
+| Taskbar auto-hide | 🟡 plain auto-hide | Maximise-only auto-hide unverified |
+| Start button opens Open-Shell menu | ❓ | Phase 2 integration test required |
+| Jump lists | ❓ | Phase 2 behaviour test required |
+| Centred task icons while Start stays left | ❌ not established | Future work |
+| Segmented / transparent floating bar | 🟡 stock blur and style control | No true Aura equivalent demonstrated |
+| Clock seconds / custom text | ✅ stock format plus fork clock control | Inspect target clock formatting |
+| Unread-count badges | ✅ stock `ShowTaskBadges` | Physical check as needed |
+| Volume by wheel over tray | ✅ stock | Physical check as needed |
+| Mic mute by middle-click | ❌ not established | Potential Phase 2 |
+| Network/battery/volume flyouts | ❓ stock uses Windows integration | Qualify on target Windows build |
 
-## Start menu (Open-Shell-Menu-Extreme)
+## Start menu — Open-Shell-Menu-Extreme
 
-| Feature | Stock | Plan |
+| Feature | Current assessment | Evidence / work |
 |---|---|---|
-| Classic one-click menus, cascading folders | ✅ | — |
-| Fast search | ✅ | Check on 26H2 |
-| Large icons in search/flyouts | ✅ configurable | — |
-| Works with RetroBar's Start button | ❓ | Phase 2 |
+| Classic one-click cascading menus | ✅ upstream capability | Verify fork behaviour on target build |
+| Fast search and configurable menu icons | ✅ upstream capability | Verify on 26H2 |
+| Start button integration with RetroBar | ❓ not qualified | Phase 2 cross-module acceptance |
 
-## Explorer and system UI
+## Explorer / system UI
 
-| Feature | Stock | Plan |
+| Feature | Current assessment | Evidence / work |
 |---|---|---|
-| Ribbon / command bar choice | ❌ | Phase 3 |
-| Details pane at bottom | ❌ | Phase 3 |
-| Classic search box | ❌ | Phase 3 |
-| Toolbar and status bar with sizes | ✅ Open-Shell ClassicExplorer | Check on 26H2 |
-| Dark mode for more dialogs | ❌ | Phase 4 |
-| Restyled context menus | ❌ | Phase 4 |
-| Whole-window skins (WindowBlinds-style) | ❌ | Phase 4 module |
+| Ribbon/command-bar choice | ❌ not established | Phase 3 |
+| Details pane at bottom | ❌ not established | Phase 3 |
+| Classic search box | ❌ not established | Phase 3 |
+| Explorer toolbar/status bar | 🟡 upstream Open-Shell ClassicExplorer capability | Target build compatibility and recovery require VM test |
+| Dark-mode dialogs | ❌ not established | Future work |
+| Restyled context menus | ❌ not established | Future work |
+| Whole-window skins | ❌ no chosen module | Phase 4 proposal |
+
+Release notes describe daily owner use of delta 1 but do not establish independent acceptance of every unchecked feature. Maintain real-world evidence in the corresponding module issue before changing an unchecked status to verified.

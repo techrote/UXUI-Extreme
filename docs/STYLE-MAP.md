@@ -1,6 +1,6 @@
 # Style map — which theme keys draw each taskbar part
 
-*UX-003 ([issue](https://github.com/techrote/RetroBar-Extreme/issues/4), [PR #15](https://github.com/techrote/RetroBar-Extreme/pull/15)) · slice S5 of [STYLE-ENGINE.md](STYLE-ENGINE.md). Source of truth: `RetroBar/Utilities/StyleMap.cs`.*
+*UX-003 ([issue](https://github.com/techrote/RetroBar-Extreme/issues/4), [PR #15](https://github.com/techrote/RetroBar-Extreme/pull/15)) · slice S5 of [STYLE-ENGINE.md](STYLE-ENGINE.md). Verified against the `StyleMap.cs` source on RetroBar `master` at `65b36c0` (18 October 2026); refresh this map if the code changes. Module source is authoritative.*
 
 The style layer (`%LOCALAPPDATA%\RetroBar\Style.json`) names **parts**. RetroBar's themes don't share resource names, so each part is mapped to the keys of the theme in use. Themes fall into three **families**, detected from the keys the theme defines:
 
