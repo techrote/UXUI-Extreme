@@ -1,97 +1,80 @@
-# Style engine — design pass
+# Style engine — implementation and remaining design
 
-*12 Oct 2026 · status: **accepted in part**: Decision A decided (native sizing); B and slice order still open (❓)*
+The original design was recorded on 12 October 2026. **Reconciled 4 November 2026** against RetroBar [`65b36c0`](https://github.com/techrote/RetroBar-Extreme/tree/65b36c0fba6ef8d8e44294b3ea332b03e32f638c). Native sizing is implemented and the default. A single exported file containing every appearance setting remains a proposal.
 
-One part of RetroBar-Extreme that owns **how the taskbar looks**: sizes, text, fonts, icons and colours. All of it is driven by one saved *style* the owner can edit, and it works on top of any built-in theme.
+## What is implemented
 
-## Why
-
-Phase 1 kept finding problems that share a root cause:
-
-| What we hit | Real cause |
-|---|---|
-| Jagged text at 105–150% (UX-002) | The whole taskbar is **stretched** by one scale factor; 100% pixels get smeared onto a non-matching grid |
-| Native-size text looked like "a different font" | *Microsoft Sans Serif* is only hand-tuned near 11px |
-| Orbitron only crisp at odd sizes; *Theme default* crisp everywhere at 100% | Orbitron has **no hinting** (no `fpgm` table): nothing snaps its strokes to pixels. MS Sans Serif is fully hinted |
-| Weight choices don't work for Orbitron | Google's file is a **variable** font; WPF only sees its default weight and fakes bold |
-| Bigger fonts overflowed the rows | Row height came from the theme, not from the text |
-| Tray icons wrong colour on 26H2 | Inversion keyed to icon IDs and theme names, not to the actual background colour |
-| Icons soft/jagged when scaled | Icons only come as 16px or 32px and are stretched to whatever the scale says |
-
-Fixing each one separately means each fix fights the stretch. The owner's own finding points the other way: **at 100% everything is crisp.**
-
-## Core idea: size things, don't stretch them
-
-Instead of drawing at 100% and stretching, make every part the **right size at 100%**:
-
-- **Text:** rendered at its real pixel size, in a font prepared for crisp rendering.
-- **Icons:** drawn at a real icon size (16 / 20 / 24 / 32 px), never resampled.
-- **Rows and buttons:** sized from text height + icon size + padding.
-- **Lines and bevels:** stay exactly 1 or 2 px, which keeps the Win95 look sharp at any size.
-
-This is how classic Windows itself handled bigger text: it changed sizes, it didn't zoom.
-
-### ✅ Decision A — scaling model: **A1 native sizing is the default and target** *(owner, 12 Oct)*. Stretch stays as a selectable fallback; fancier stretch/scaling methods may be revisited much later.
-
-| Option | What it means | Pros | Cons |
-|---|---|---|---|
-| **A1. Native sizing** *(recommended)* | *Taskbar scale* multiplies theme sizes (heights, widths, margins, font size) and picks real icon sizes; nothing is stretched | Crisp everything at any percentage, 1px lines stay 1px, no special text tricks needed | Themes hard-code some details (padding inside templates), so a few may look cramped or need small per-theme fixes; biggest single change |
-| A2. Stretch + fix-ups *(current)* | Keep the stretch; counter-scale text (done), later icons | Already partly built; every theme works unchanged | Bevels and lines still blur at in-between scales; every new element needs its own fix-up |
-| A3. Both, switchable | A1 as the new mode, A2 kept as "classic stretch" | Safe fallback per theme | Two code paths to keep working |
-
-Implemented as UX-006 ([#9](https://github.com/techrote/RetroBar-Extreme/issues/9), [PR #10](https://github.com/techrote/RetroBar-Extreme/pull/10)): theme XAML is rescaled with whole-pixel rounding as it loads; borders and strokes are not scaled. The UX-002 counter-scale only runs in stretch mode.
-
-## Fonts: a font pipeline
-
-Crisp pixel text needs a font that is (1) a real static weight, (2) hinted, (3) used at a size it was designed or hinted for.
-
-1. **Private fonts folder.** `Fonts\` beside RetroBar.exe (or in `%LOCALAPPDATA%`), loaded only by RetroBar: no system install, no conflicts.
-2. **Prepared fonts.** For any OFL/open font the owner wants:
-   - convert variable → one static file per weight;
-   - auto-hint with *ttfautohint* (the same tool Google Fonts uses);
-   - rename so it can't clash with the original.
-   
-   ✅ Probe done: **Orbitron Hinted** (ttfautohint) — owner: similar issues overall, nicer at their chosen size. Hinting helps but doesn't replace picking good sizes.
-3. **A small curated set** of openly licensed pixel-style fonts designed for larger sizes, for the true Win9x look at 145%+. Licences checked per font before bundling.
-4. **Size readout** keeps showing the real on-screen px (done in UX-005).
-
-### ❓ Decision B — where fonts get prepared
-
-| Option | Pros | Cons |
+| Area | Current implementation | Source / task |
 |---|---|---|
-| **B1. Agent prepares packs on request** *(recommended for now)* | Zero code in RetroBar; owner just says "make me X"; already proven today | Owner depends on an agent session for new fonts |
-| B2. Repo tool + CI: drop a font in a folder in UXUI-Extreme, GitHub builds the prepared pack | Repeatable, no agent needed | Some setup; still a download step |
-| B3. RetroBar converts fonts itself at runtime | One-click for the owner | Bundling the hinting engine into a .NET app is real work and risk |
+| Native sizing | Load theme dimensions at the requested taskbar scale; the native path uses a unit whole-bar transform. Stretch is selectable. | [ScaleModel](https://github.com/techrote/RetroBar-Extreme/blob/65b36c0fba6ef8d8e44294b3ea332b03e32f638c/RetroBar/Utilities/ScaleModel.cs), UX-006 |
+| Text and layout | Taskbar/clock font controls, row adjustment, line spacing, clock orientation and button layout are implemented. | UX-005/007/008/012/014 in [PROGRAMME](PROGRAMME.md) |
+| Fonts | 24 families embedded as WPF resources; installed fonts also selectable. Knurled Swarf has size-specific faces. | [BundledFonts](https://github.com/techrote/RetroBar-Extreme/blob/65b36c0fba6ef8d8e44294b3ea332b03e32f638c/RetroBar/Utilities/BundledFonts.cs), UX-017 |
+| Custom icons | PNG overrides and size sets for Start/quick-launch; tray-toggle customization. Selection/scaling depends on available source sizes. | UX-015/016, [PR #24](https://github.com/techrote/RetroBar-Extreme/pull/24) |
+| Colour layer | Per-part solid/gradient/texture overrides, generated colourways, named styles, a 12-slot colour palette and 20-slot texture palette. | [StyleDocument](https://github.com/techrote/RetroBar-Extreme/blob/65b36c0fba6ef8d8e44294b3ea332b03e32f638c/RetroBar/Utilities/StyleDocument.cs), [STYLE-MAP](STYLE-MAP.md) |
+| Start and borders | Separate `start.recolour` image treatment and `borders` factors; current border range is integer 0–16, not the original issue's 0–4. | [Start document](https://github.com/techrote/RetroBar-Extreme/blob/65b36c0fba6ef8d8e44294b3ea332b03e32f638c/RetroBar/Utilities/StyleDocument.Start.cs), [border document](https://github.com/techrote/RetroBar-Extreme/blob/65b36c0fba6ef8d8e44294b3ea332b03e32f638c/RetroBar/Utilities/StyleDocument.Borders.cs) |
 
-## Colours
+These are source facts. Historical visual acceptance and current CI evidence are recorded separately in [the audit](audits/2026-11-04-quality-audit.md).
 
-From UX-003, with the theme-key map still the first job:
+## Native sizing and Windows DPI
 
-- Per-part **brush**: solid or linear gradient (stops + angle). Parts: bar, buttons (normal/hover/pressed/active), text, tray, clock, Start, borders.
-- **Ratrod presets** as starting points, e.g. gunmetal, galvanised, oxide, matte black with one signal accent.
-- **Derived rules** so things stay readable:
-  - **tray icon inversion decided by background brightness** (replaces the theme-name rule and the 26H2 ID mismatch from UX-001);
-  - warn on low text contrast.
+**Decision A is resolved:** native sizing is the default and target, with stretch retained as a fallback. UX-006 already implemented the choice; there is no pending “S2 or fonts first?” decision.
 
-## Styles: one saved thing
+| Mode | Theme sizes | Whole-taskbar transform |
+|---|---|---|
+| Native | Scaled as the theme loads | 1 on the native scaled path |
+| Stretch | Theme loaded at its base size | `TaskbarScale` |
 
-A **style** = base theme + overrides (geometry, font, colours, icon size). It is saved as a small file in `%LOCALAPPDATA%\RetroBar\Styles\`, switchable and exportable. The Properties **Style** tab (started in UX-005, finished in UX-004) edits the active style live. A broken style file never stops RetroBar starting: it logs and falls back to the plain theme.
+At 100% taskbar scale both paths use unit scaling. The sharp-text counter-scaling belongs to the stretch path. Theme geometry, text and icon helpers need to agree on the selected mode; new code should use the existing helpers rather than apply a second scale.
 
-## Slices (each one a normal issue → PR → owner test)
+WPF uses device-independent units which scale with Windows DPI. Rounding a theme dimension to a whole layout unit is not a guarantee of a one-physical-pixel line at every monitor scale. Fonts and bitmap sources can still require rasterization or resampling. Native sizing removes the unnecessary whole-taskbar stretch, but does not guarantee crispness for every font/image/size. See [Microsoft's WPF layout and rounding explanation](https://learn.microsoft.com/en-us/dotnet/desktop/wpf/advanced/layout#sub-pixel-rendering-and-layout-rounding).
 
-| # | Slice | Depends on | Notes |
-|---|---|---|---|
-| S1 | Font settings + row growth (**PR #8, UX-005**) | — | ✅ Merged, owner-tested |
-| S2 | **Native sizing** (Decision A) — UX-006 | S1 | ✅ Merged, owner-tested. Owner will mostly run at **100% scale with larger fonts** |
-| S3 | Real-size icons | S2 | Owner: icons already look fine after S2; low priority |
-| S4 | Private fonts folder + first prepared/curated fonts | S1 | Pairs with Decision B |
-| S5 | Theme-key map + colour layer (UX-003) | S2 | ✅ Merged (PR #15), owner-tested. Map: [STYLE-MAP.md](STYLE-MAP.md) |
-| S6 | Style files + editor (UX-004) | S5 | ✅ Merged (PR #16), owner-tested: Colours tab, named styles in `Styles\`. Fonts stay as settings for now |
-| S7 | Brightness-based tray inversion and contrast warnings | S5 | Closes UX-001's leftovers |
+Borders are treated separately from overall theme scaling and can be explicitly overridden. Preserve that distinction when adding dimensions; do not infer that every border is always exactly 1 physical pixel.
 
-## Owner decisions needed
+## Fonts: established observations and future options
 
-- ✅ **A — scaling model:** native sizing is default and target (owner, 12 Oct).
-- ❓ **B — font preparation:** B1 now (agent-made packs), maybe B2 later?
-- ❓ **Order:** S2 (native sizing) next, or S4 (fonts folder) first?
-- Feedback wanted: plain **Orbitron** vs **Orbitron Hinted** at a few sizes.
+The owner's October comparisons found size-dependent results with the tested Orbitron and Orbitron Hinted files, and preferred the hinted variant at the chosen size. Keep that as a dated observation. The old diagnosis “no `fpgm` table means no hinting” was too strong: OpenType's [`fpgm` table is optional](https://learn.microsoft.com/en-us/typography/opentype/spec/fpgm), and [`glyf` can contain per-glyph instructions](https://learn.microsoft.com/en-us/typography/opentype/spec/glyf). Identify the actual font file and inspect its relevant tables before diagnosing its hinting or weight behavior.
+
+The current bundled-font implementation supersedes part of the original “first curated fonts” proposal. A generic private `Fonts\` directory loader, automatic variable-font conversion and runtime auto-hinting are **not established shipped features**. Any new prepared font pack must retain its license, distinguish static faces/weights correctly, and be tested at the requested sizes. The filename or family name alone is not evidence of rendering quality.
+
+The old Decision B remains a choice only if additional preparation is wanted:
+
+| Option | Use | Tradeoff |
+|---|---|---|
+| Agent prepares a requested pack | Small number of selected fonts | Low application complexity; requires a preparation task. |
+| Repeatable repository/CI preparation tool | Repeated pack generation | Reproducible inputs and licensing record; additional maintenance. |
+| Runtime preparation inside RetroBar | Only if explicitly selected later | More native dependencies and failure paths; not part of current behavior. |
+
+## What a saved style contains
+
+The active colour/style layer is `%LOCALAPPDATA%\RetroBar\Style.json`; named copies live in `Styles\`. Application settings remain in `%LOCALAPPDATA%\RetroBar\settings.json`. Portable builds use the same directory.
+
+| Stored in a style | Stored separately / not a complete style export |
+|---|---|
+| Per-part brushes, gradients and textures | Base theme selection |
+| Colour and texture palettes | Taskbar and clock font settings |
+| Start recolouring | Layout, scale, row/clock/button settings |
+| Per-part border factors | Custom image files and other application settings |
+
+Saving a named style therefore does not back up the whole taskbar configuration. Keep settings and referenced user assets when making a full backup. Applying a colourway already writes the active style; saving a named copy is optional, as clarified in the [UX-009 acceptance record](https://github.com/techrote/RetroBar-Extreme/issues/17#issuecomment-6219971124).
+
+A unified style/configuration bundle remains a future design. It needs a versioned schema, explicit migration rules, asset handling and failure/recovery tests before it can replace the split storage. The existing style reader skips invalid values and the layer has fallback handling; this audit reviewed those paths but did not run a new Windows startup test.
+
+## Colours and remaining rules
+
+The [theme-key map](STYLE-MAP.md) controls brushes for bar, tray, button states, text, clock and bevels. Start image recolouring is a separate pipeline. Per-part border factors are also separate from the brush map.
+
+**S7 remains open design:** background-brightness tray inversion and general low-contrast warnings are not implemented as universal rules. The current tray path still combines mode, per-icon selection and the base theme's inversion flag. Generated colourways contain limited foreground contrast selection; that is not a warning system for every arbitrary gradient, texture or user override. New work needs a defined luminance/contrast policy and owner comparison before changing defaults.
+
+## Original slice reconciliation
+
+| Slice | Disposition at the inspected source |
+|---|---|
+| S1 — fonts and row growth | UX-005 merged; historical owner report linked in the programme. |
+| S2 — native sizing | UX-006 merged and adopted; no longer a sequencing question. |
+| S3 — real-size icons | UX-015 adds custom size sets; available assets and scaling fallback still matter. Do not promise all icons are never resampled. |
+| S4 — private/prepared fonts | UX-017 embeds 24 families; generic private-directory loading and preparation automation remain proposals. |
+| S5 — map and colour layer | UX-003 merged; [STYLE-MAP](STYLE-MAP.md) describes the current mapping. |
+| S6 — style files and editor | UX-004 merged for colour/style state; not a unified settings bundle. |
+| S7 — brightness/contrast policy | Still proposed; UX-001's deferred default matching remains relevant. |
+
+Next work should be selected from the remaining gaps after checking live module issues, rather than treating this historical slice list as an unimplemented feature backlog.

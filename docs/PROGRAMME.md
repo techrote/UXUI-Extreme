@@ -1,44 +1,59 @@
 # Programme
 
-Order of work across all modules. Detailed instructions and progress live in each module's issues (linked); this page is the map.
+Order of work across the suite. Module issues contain implementation instructions and progress; this page is the overview. **Reconciled 4 November 2026** against the module heads in the [audit record](audits/2026-11-04-quality-audit.md). Historical owner reports apply to their tested builds, not automatically to current `master`.
 
-## Phase 0 — Workshop *(in progress)*
+## Phase 0 — Workshop and qualification
 
-- Umbrella repo, rules and checklist. ✅
-- Confirm CI builds portable zips for PRs on RetroBar-Extreme. ✅
-- Windows 11 test VM with snapshots — needed before any Explorer-injecting work (Open-Shell, skinning), not for RetroBar.
+| Work | Status and next step |
+|---|---|
+| Umbrella rules, plan and evidence | [UX-018](https://github.com/techrote/UXUI-Extreme/issues/5): this audit reconciles the documentation and adds offline navigation checks/CI. |
+| RetroBar build route | Portable artifacts and installer CI passed at `65b36c0`; [exact downloads and runtime prerequisites](BUILD-AND-TEST.md). |
+| RetroBar upstream updater | [UX-019](https://github.com/techrote/RetroBar-Extreme/issues/34), [draft PR #35](https://github.com/techrote/RetroBar-Extreme/pull/35): application and installer probes repaired on the branch; native CI and owner acceptance remain module gates. |
+| Open-Shell fork build and offline policy | [UX-020](https://github.com/techrote/Open-Shell-Menu-Extreme/issues/1): unsigned, non-publishing CI; reconcile inherited updater; produce a qualified installer. No fork CI evidence was available at inspection. |
+| Windows VM with snapshots | Still required before Open-Shell/other Explorer-injecting tests. Record install, login, exit, uninstall and stock-shell recovery on the exact Windows build before any daily-machine test. |
 
-## Phase 1 — Make RetroBar feel right *(current)*
+The Open-Shell inherited manual workflow includes signing and release publication; it must not be dispatched unchanged to satisfy the build requirement. See [BUILD-AND-TEST](BUILD-AND-TEST.md).
 
-Releases: [v1.23.31-extreme-alpha.1](https://github.com/techrote/RetroBar-Extreme/releases/tag/v1.23.31-extreme-alpha.1) (UX-001, 002, 005–008) · [v1.23.32-extreme-alpha.2](https://github.com/techrote/RetroBar-Extreme/releases/tag/v1.23.32-extreme-alpha.2) (+ UX-003 style layer) · [v1.23.34-extreme-alpha.3](https://github.com/techrote/RetroBar-Extreme/releases/tag/v1.23.34-extreme-alpha.3) (+ UX-004 style editor) · [v1.23.35-extreme-alpha.4](https://github.com/techrote/RetroBar-Extreme/releases/tag/v1.23.35-extreme-alpha.4) (+ UX-009 colourways).
+## Phase 1 — RetroBar implementation and acceptance
 
-The owner's first-impression fixes, in this order:
+The newest observed personal prerelease is [v1.23.43-extreme-delta.1](https://github.com/techrote/RetroBar-Extreme/releases/tag/v1.23.43-extreme-delta.1), whose tag resolves to inspected `master` `65b36c0`. Earlier alpha releases are historical, not the current task list. This is a prerelease label, not a declaration of production readiness.
 
-| ID | What | Why this order |
-|---|---|---|
-| [UX-001](https://github.com/techrote/RetroBar-Extreme/issues/2) | Tray icons stuck inverted · ✅ *merged ([PR #1](https://github.com/techrote/RetroBar-Extreme/pull/1)), owner-tested; inversion defaults deferred to UX-003* | Small, clear bug; proves the build → test → merge loop end to end |
-| [UX-002](https://github.com/techrote/RetroBar-Extreme/issues/3) | Crisp pixel-style text at non-integer scaling · *opt-in mode merged ([PR #6](https://github.com/techrote/RetroBar-Extreme/pull/6)); default decided after fonts* | Perceptual; needs side-by-side prototypes the owner compares |
-| [UX-005](https://github.com/techrote/RetroBar-Extreme/issues/7) | Font settings over any theme (family, size, weight, italic) · ✅ *merged ([PR #8](https://github.com/techrote/RetroBar-Extreme/pull/8)), owner-tested* | Owner pulled forward: native-size text needs a font chosen for that size |
-| [UX-006](https://github.com/techrote/RetroBar-Extreme/issues/9) | Native sizing: draw at real size, no stretching (style engine S2) · ✅ *merged ([PR #10](https://github.com/techrote/RetroBar-Extreme/pull/10)), owner-tested* | Owner decision: native sizing is the default and target |
-| [UX-007](https://github.com/techrote/RetroBar-Extreme/issues/11) | Text fixes: menus, symbol fonts, row height + manual adjust · ✅ *merged ([PR #12](https://github.com/techrote/RetroBar-Extreme/pull/12)), owner-tested* | Found while testing UX-006 |
-| [UX-008](https://github.com/techrote/RetroBar-Extreme/issues/13) | Line spacing, clock lines/fit/position, steady clock width (clock overflow + walking divider) · ✅ *merged ([PR #14](https://github.com/techrote/RetroBar-Extreme/pull/14)), owner-tested* | Found in daily use |
-| [UX-003](https://github.com/techrote/RetroBar-Extreme/issues/4) | Style layer: custom colours and gradients over any theme · ✅ *merged ([PR #15](https://github.com/techrote/RetroBar-Extreme/pull/15)), owner-tested; map in [STYLE-MAP.md](STYLE-MAP.md)* | Fonts now handled by UX-005 |
-| [UX-004](https://github.com/techrote/RetroBar-Extreme/issues/5) | Style editor in RetroBar's Properties window (Colours tab) · ✅ *merged ([PR #16](https://github.com/techrote/RetroBar-Extreme/pull/16)), owner-tested* | Needs the UX-003 layer to edit |
-| [UX-009](https://github.com/techrote/RetroBar-Extreme/issues/17) | Colourways: copy/paste on colours, 12-slot floating palette, generated button/tray schemes, presets · ✅ *merged ([PR #20](https://github.com/techrote/RetroBar-Extreme/pull/20)), owner-tested* | Owner request after UX-004; makes whole colour sets quick |
-| [UX-010](https://github.com/techrote/RetroBar-Extreme/issues/18) | Start button colourways: colours from the Start button graphic, and recolouring it to match · ✅ *merged ([PR #21](https://github.com/techrote/RetroBar-Extreme/pull/21)), owner-tested* | Builds on the UX-009 palette and scheme generator |
-| [UX-011](https://github.com/techrote/RetroBar-Extreme/issues/19) | *Stretch:* textures coloured from a LUT (brushed metal, carbon, scanlines…) · ✅ *merged ([PR #23](https://github.com/techrote/RetroBar-Extreme/pull/23)), owner-tested on `51c5695`; merge `4f78802`* | Needs UX-009 palettes; Phase 4 skin-pack groundwork |
-| [UX-012](https://github.com/techrote/RetroBar-Extreme/issues/22) | Layout tab: vertical / resized Start button (hide icon or text), Show desktop beside or under Start, vertical clock with its own font · *in PR ([PR #24](https://github.com/techrote/RetroBar-Extreme/pull/24)), agent-tested; awaiting owner test* | Owner request for tall multi-row bars |
-| [UX-013](https://github.com/techrote/RetroBar-Extreme/issues/25) | Texture angle, coherent noise patterns (clouds, cells, marble), border thickness · *in PR ([PR #24](https://github.com/techrote/RetroBar-Extreme/pull/24)), agent-tested; awaiting owner test* | Owner request after UX-011 |
-| [UX-014](https://github.com/techrote/RetroBar-Extreme/issues/26) | Task button width, icon and label for all apps and per app, remembered · *in PR ([PR #24](https://github.com/techrote/RetroBar-Extreme/pull/24)), agent-tested; awaiting owner test* | Owner request |
+The first-impression work was developed in the following order. **Merged** means the change is in the inspected source. **Recorded owner report** links the historical issue record; exactness varies and is detailed in the audit.
 
-> **Style engine design pass:** [STYLE-ENGINE.md](STYLE-ENGINE.md) proposes one engine for sizes, fonts, icons and colours, and reorders the rest of Phase 1 into slices S1–S7. *Decision A (native sizing) taken; B and order open.*
+| ID / owning issue | Work | Implementation | Historical owner evidence / remaining work |
+|---|---|---|---|
+| [UX-001 / #2](https://github.com/techrote/RetroBar-Extreme/issues/2) | Tray inversion set/clear and live refresh | [PR #1](https://github.com/techrote/RetroBar-Extreme/pull/1) merged | [PASS report](https://github.com/techrote/RetroBar-Extreme/issues/2#issuecomment-6124231926); default matching and brightness-based policy were deferred. |
+| [UX-002 / #3](https://github.com/techrote/RetroBar-Extreme/issues/3) | Sharp text in stretch mode | [PR #6](https://github.com/techrote/RetroBar-Extreme/pull/6) merged; **issue still open** | Default/cleanup follow-up remains; assess against native sizing and bundled fonts before deciding more work. |
+| [UX-005 / #7](https://github.com/techrote/RetroBar-Extreme/issues/7) | Font settings and row growth | [PR #8](https://github.com/techrote/RetroBar-Extreme/pull/8) merged | [Report at `1ae8938`](https://github.com/techrote/RetroBar-Extreme/issues/7#issuecomment-6126564765). |
+| [UX-006 / #9](https://github.com/techrote/RetroBar-Extreme/issues/9) | Native sizing | [PR #10](https://github.com/techrote/RetroBar-Extreme/pull/10) merged | [Report at `40455bf`](https://github.com/techrote/RetroBar-Extreme/issues/9#issuecomment-6127224058); native is the default. |
+| [UX-007 / #11](https://github.com/techrote/RetroBar-Extreme/issues/11) | Menus, symbol fonts and row height | [PR #12](https://github.com/techrote/RetroBar-Extreme/pull/12) merged | [PASS at `9e7ff3e`](https://github.com/techrote/RetroBar-Extreme/issues/11#issuecomment-6128686146). |
+| [UX-008 / #13](https://github.com/techrote/RetroBar-Extreme/issues/13) | Line spacing, clock fit and width | [PR #14](https://github.com/techrote/RetroBar-Extreme/pull/14) merged | [PASS at `6af9fd1`](https://github.com/techrote/RetroBar-Extreme/issues/13#issuecomment-6130777321). |
+| [UX-003 / #4](https://github.com/techrote/RetroBar-Extreme/issues/4) | Colour/gradient layer over themes | [PR #15](https://github.com/techrote/RetroBar-Extreme/pull/15) merged | [Owner report](https://github.com/techrote/RetroBar-Extreme/issues/4#issuecomment-6215917137); fonts remain separate settings. |
+| [UX-004 / #5](https://github.com/techrote/RetroBar-Extreme/issues/5) | Colours editor and named styles | [PR #16](https://github.com/techrote/RetroBar-Extreme/pull/16) merged | [Owner report](https://github.com/techrote/RetroBar-Extreme/issues/5#issuecomment-6218017594); a named style is not a full settings backup. |
+| [UX-009 / #17](https://github.com/techrote/RetroBar-Extreme/issues/17) | Colourways, palette and copy/paste | [PR #20](https://github.com/techrote/RetroBar-Extreme/pull/20) merged | [Owner report](https://github.com/techrote/RetroBar-Extreme/issues/17#issuecomment-6219971124); applying writes the active style, named copies are optional. |
+| [UX-010 / #18](https://github.com/techrote/RetroBar-Extreme/issues/18) | Start image colour extraction/recolouring | [PR #21](https://github.com/techrote/RetroBar-Extreme/pull/21) merged | [Exact-head PASS at `273f12a`](https://github.com/techrote/RetroBar-Extreme/issues/18#issuecomment-6222247337). |
+| [UX-011 / #19](https://github.com/techrote/RetroBar-Extreme/issues/19) | LUT-coloured textures | [PR #23](https://github.com/techrote/RetroBar-Extreme/pull/23) merged | [Exact-head PASS at `51c5695`](https://github.com/techrote/RetroBar-Extreme/issues/19#issuecomment-6223445529). |
+| [UX-012 / #22](https://github.com/techrote/RetroBar-Extreme/issues/22) | Start/Show desktop/clock layout | [PR #24](https://github.com/techrote/RetroBar-Extreme/pull/24) merged; issue closed | Source/automated records exist; no separate exact-head owner PASS recovered in this audit. |
+| [UX-013 / #25](https://github.com/techrote/RetroBar-Extreme/issues/25) | Texture angle/patterns and borders | [PR #24](https://github.com/techrote/RetroBar-Extreme/pull/24) merged; issue closed | Same qualification boundary as UX-012. Later delta changes also affect these controls. |
+| [UX-014 / #26](https://github.com/techrote/RetroBar-Extreme/issues/26) | Global/per-app task-button controls | [PR #24](https://github.com/techrote/RetroBar-Extreme/pull/24) merged; issue closed | Same qualification boundary as UX-012. |
+| [UX-015 / #27](https://github.com/techrote/RetroBar-Extreme/issues/27) | Custom Start/quick-launch PNG icons and size sets | [PR #24](https://github.com/techrote/RetroBar-Extreme/pull/24) merged; issue closed | Previously missing from this overview; source support does not certify every DPI/image. |
+| [UX-016 / #28](https://github.com/techrote/RetroBar-Extreme/issues/28) | Tray-toggle image and margins | [PR #24](https://github.com/techrote/RetroBar-Extreme/pull/24) merged; issue closed | Previously missing from this overview; owner qualification remains separately recorded. |
+| [UX-017 / #29](https://github.com/techrote/RetroBar-Extreme/issues/29) | 24 built-in font families, example styles and Extras packaging | [PR #30](https://github.com/techrote/RetroBar-Extreme/pull/30) merged; issue closed | Contract/build evidence exists; no separate exact-head owner PASS recovered. |
 
-## Phase 2 — Taskbar parity with the owner's StartAllBack setup
+PR #24 historically grouped UX-012–016. Its merge `dba7b477622ebc54f47c3149a7292ed6d3f42051` supersedes the old “in PR / awaiting merge” rows. PR #30 merged as `c51ee1c97f1976cd315f7df1588d7d7911462f93`. Later [PR #31](https://github.com/techrote/RetroBar-Extreme/pull/31) and [PR #33](https://github.com/techrote/RetroBar-Extreme/pull/33) lead to the current delta source. Release narratives report daily use; they do not substitute for an exact-build owner acceptance record for every change.
 
-Checklist-driven from [PARITY.md](PARITY.md): Start button opening the Open-Shell menu, label/width behaviour, thumbnails and jump lists, multi-monitor, auto-hide modes.
+Remaining styling choices are in [STYLE-ENGINE](STYLE-ENGINE.md): native scaling is resolved, bundled fonts already exist, while arbitrary private-font loading, automatic tray brightness policy and full configuration export remain proposals. Do not restart merged slices from the old design order.
 
-## Phase 3 — Start menu and Explorer gaps (Open-Shell-Menu-Extreme)
+## Phase 2 — Qualify taskbar parity
+
+Use [PARITY](PARITY.md) to select a bounded task. Priorities remain the owner's labelled, never-combined, compact taskbar; qualify exact layouts, fonts, multi-monitor/DPI, drag/drop and flyouts as needed. Distinguish missing implementation from present-but-unqualified behavior.
+
+RetroBar already recognizes Open-Shell windows and has a menu invocation/placement path. End-to-end pairing still needs the exact two builds, settings and Windows version recorded, after UX-020's VM/build prerequisites. Jump-list quality, covered-window auto-hide, optional grouping and other unverified items must be investigated before promising implementation.
+
+## Phase 3 — Start menu and Explorer gaps
+
+Start with [UX-020](https://github.com/techrote/Open-Shell-Menu-Extreme/issues/1). Its admission gate is an unsigned, non-publishing fork build, updater-policy reconciliation, a usable installer and snapshot-VM recovery results. Only then qualify the menu/search/Explorer features and the RetroBar pair. A cleanup function in source is not a passed uninstall or login test.
 
 ## Phase 4 — Extreme extras
 
-Ratrod skin pack, whole-window skinning module, anything StartAllBack never had.
+Ratrod skin pack, whole-window skinning and further owner-selected additions. No window-skinning module has been chosen. Existing RetroBar textures, example styles and embedded fonts are implemented groundwork, not evidence of a whole-window skinning engine.

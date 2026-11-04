@@ -1,6 +1,6 @@
 # Style map — which theme keys draw each taskbar part
 
-*UX-003 ([issue](https://github.com/techrote/RetroBar-Extreme/issues/4), [PR #15](https://github.com/techrote/RetroBar-Extreme/pull/15)) · slice S5 of [STYLE-ENGINE.md](STYLE-ENGINE.md). Source of truth: `RetroBar/Utilities/StyleMap.cs`.*
+*UX-003 ([issue](https://github.com/techrote/RetroBar-Extreme/issues/4), [PR #15](https://github.com/techrote/RetroBar-Extreme/pull/15)) · slice S5 of [STYLE-ENGINE.md](STYLE-ENGINE.md). Checked 4 November 2026 against [StyleMap.cs at `65b36c0`](https://github.com/techrote/RetroBar-Extreme/blob/65b36c0fba6ef8d8e44294b3ea332b03e32f638c/RetroBar/Utilities/StyleMap.cs), the implementation authority for this table.*
 
 The style layer (`%LOCALAPPDATA%\RetroBar\Style.json`) names **parts**. RetroBar's themes don't share resource names, so each part is mapped to the keys of the theme in use. Themes fall into three **families**, detected from the keys the theme defines:
 
@@ -10,7 +10,10 @@ The style layer (`%LOCALAPPDATA%\RetroBar\Style.json`) names **parts**. RetroBar
 | Watercolor | Watercolor | `ButtonActiveBackground` |
 | Modern | XP Blue, Olive Green, Silver, Royale, Royale Noir, Embedded, Zune · Vista Aero, Basic · Longhorn Aero | `TaskbarBackground` |
 
+Detection checks `TaskbarBackground` first, then `ButtonActiveBackground`, then falls back to Classic. If a custom theme has both keys, Modern wins. This is resource-family detection, not a guarantee that every custom template uses every mapped key.
+
 Key roles:
+
 - **fill** gets the part's brush.
 - **fill ⟂** gets the brush turned 90°, for a vertical taskbar.
 - **clear** is set to transparent. These are theme overlays that would tint a custom background.
@@ -73,8 +76,10 @@ State suffix `{s}`:
 
 On pushed-in (active) buttons the inner bevel is swapped: the light edges take `bevel.shadow` and the dark edges take `bevel.highlight`.
 
-## Not mapped yet
-- **Start button.** XP and Vista draw it as an image. Classic draws it with `ButtonFace`, so it follows `bar.background`.
-- **Toolbar, tray toggle, scroll buttons, balloons and tooltips.** These keep the theme's look.
-- **Tray icon inversion.** It still follows the base theme's `InvertSystemNotifyIcons`. Brightness-based inversion is slice S7.
-- **Fonts.** These stay in the UX-005 settings.
+## Outside this brush map
+
+- **Start image recolouring is implemented separately.** UX-010's top-level `start.recolour` uses the image pipeline; it is not a `start.background` brush part. Classic follows `ButtonFace`/`bar.background`. UX-015 also supports a custom Start icon. [Start document source](https://github.com/techrote/RetroBar-Extreme/blob/65b36c0fba6ef8d8e44294b3ea332b03e32f638c/RetroBar/Utilities/StyleDocument.Start.cs).
+- **Border thickness is separate from border colour.** Top-level `borders` supports `bar`, `tray`, `button`, `buttonActive`, `buttonFlashing`, `clock` and `start`, with whole-number factors 0–16 at the inspected source. It is applied during theme loading, rather than by the brush-key mapping. [Border source](https://github.com/techrote/RetroBar-Extreme/blob/65b36c0fba6ef8d8e44294b3ea332b03e32f638c/RetroBar/Utilities/StyleDocument.Borders.cs).
+- **Toolbar, scroll buttons, balloons and tooltips** have no independent per-part brush mapping here. Some shared theme resources can affect more than one component. The tray-toggle image/margins are separately customizable through UX-016.
+- **Tray icon inversion** still combines mode, per-icon selection and the base theme's `InvertSystemNotifyIcons`; background-brightness inversion remains proposed S7. Custom replacement tray images have their own path.
+- **Fonts and layout** remain application settings, not fields in this brush map or a complete exported style bundle. See [STYLE-ENGINE](STYLE-ENGINE.md).
